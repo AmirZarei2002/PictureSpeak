@@ -1,6 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import { seedContent } from '../modules/content/infrastructure/prisma/content.seed';
+import { createPrismaClient } from './create-prisma-client';
 
-const prisma = new PrismaClient();
+const prisma = createPrismaClient();
 
 async function main() {
   console.log('Starting database seeding...');
@@ -12,6 +13,8 @@ async function main() {
     console.error('❌ Database connection failed:', error);
     throw error;
   }
+
+  await seedContent(prisma);
 
   console.log('Database seeding completed.');
 }
