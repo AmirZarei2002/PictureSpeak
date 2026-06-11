@@ -1,0 +1,407 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "PictureSpeak",
+
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "delete": "Delete",
+  "edit": "Edit",
+  "newLabel": "New",
+  "required": "Required",
+  "active": "Active",
+  "inactiveTag": "inactive",
+  "setActive": "Set active",
+  "setInactive": "Set inactive",
+  "tryAgain": "Try again",
+  "signOut": "Sign out",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "guest": "Guest",
+  "yes": "yes",
+  "no": "no",
+  "never": "never",
+  "nothingToShow": "Nothing to show.",
+
+  "home": "Home",
+  "favorites": "Favorites",
+  "progress": "Progress",
+  "settings": "Settings",
+
+  "welcomeTagline": "See it. Hear it. Say it.",
+  "welcomeSubtitle": "Learn words by picture and sound.",
+  "continueAsGuest": "Continue as guest",
+  "signIn": "Sign in",
+  "createAccount": "Create account",
+  "welcomeError": "Could not continue. Check your connection and try again.",
+
+  "emailRequired": "Please enter your email",
+  "emailInvalid": "That doesn't look like an email",
+  "passwordRequired": "Please enter your password",
+  "genericError": "Something went wrong. Please try again.",
+  "loginFailed": "That email or password didn't match. Please try again.",
+  "serverUnreachable": "Can't reach the server. Check your connection and try again.",
+  "displayNameOptional": "Display name (optional)",
+  "passwordHelper": "8+ chars with upper, lower, a number, and a symbol",
+  "passwordChoose": "Please choose a password",
+  "passwordWeak": "Use 8+ chars with upper, lower, a number, and a symbol (@$!%*?&)",
+  "emailTaken": "That email is already registered. Try signing in instead.",
+  "checkDetails": "Please check your details and try again.",
+
+  "greeting": "Hello!",
+  "greetingNamed": "Hello, {name}!",
+  "@greetingNamed": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "homeLoadError": "Could not load categories.",
+  "noCategoriesYet": "No categories yet.",
+  "pickCategory": "Pick a category to explore",
+
+  "detailLoadError": "Could not load items.",
+  "noItemsYet": "No items yet.",
+  "wordsToExplore": "{count, plural, =1{1 word to explore} other{{count} words to explore}}",
+  "@wordsToExplore": {
+    "placeholders": {
+      "count": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "wordsCount": "{count, plural, =1{1 word} other{{count} words}}",
+  "@wordsCount": {
+    "placeholders": {
+      "count": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+
+  "learnTitle": "Learn",
+  "playWord": "Play word",
+  "cardPosition": "{current} of {total}",
+  "@cardPosition": {
+    "placeholders": {
+      "current": { "type": "int", "format": "decimalPattern" },
+      "total": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+
+  "favoritesLoadError": "Could not load favorites.",
+  "practiceAll": "Practice all",
+  "favoritesEmpty": "Tap the ♥ on any word to save it here.",
+  "removeFromFavorites": "Remove from favorites",
+  "addToFavorites": "Add to favorites",
+  "removedFromFavorites": "Removed from favorites",
+  "undo": "Undo",
+  "favoriteUpdateError": "Couldn't update favorites",
+
+  "progressLoadError": "Could not load progress.",
+  "wordsExplored": "Words explored",
+  "timesListened": "Times listened",
+  "progressEmpty": "Your journey starts with one tap.",
+  "exploredOfTotal": "{explored} of {total} explored",
+  "@exploredOfTotal": {
+    "placeholders": {
+      "explored": { "type": "int", "format": "decimalPattern" },
+      "total": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+
+  "offlineBanner": "Offline — showing saved content",
+
+  "textSize": "Text size",
+  "textScaleNormal": "Normal",
+  "textScaleLarge": "Large",
+  "textScaleExtra": "Extra",
+  "previewText": "The quick brown fox",
+  "theme": "Theme",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "language": "Language",
+  "english": "English",
+  "persian": "فارسی",
+  "account": "Account",
+  "guestAccount": "Guest account",
+  "adminSection": "Admin",
+  "dashboard": "Dashboard",
+  "dashboardSubtitle": "Overview, top items, active users",
+  "manageUsers": "Manage users",
+  "manageUsersSubtitle": "List, drill-down, role, delete",
+  "manageCategories": "Manage categories",
+  "manageCategoriesSubtitle": "Create, edit, activate, delete",
+
+  "adminDashboard": "Admin dashboard",
+  "overviewFailed": "Overview failed: {error}",
+  "@overviewFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "users": "Users",
+  "userBreakdown": "{reg} reg · {guest} guest",
+  "@userBreakdown": {
+    "placeholders": {
+      "reg": { "type": "int", "format": "decimalPattern" },
+      "guest": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "admins": "Admins",
+  "categories": "Categories",
+  "activeCount": "{count} active",
+  "@activeCount": {
+    "placeholders": {
+      "count": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "items": "Items",
+  "progressRows": "Progress rows",
+  "activeUsers": "Active users",
+  "activeUsersFailed": "Active users failed: {error}",
+  "@activeUsersFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "dau": "DAU",
+  "wau": "WAU",
+  "mau": "MAU",
+  "dailyActiveLastDays": "Daily active — last {days} days",
+  "@dailyActiveLastDays": {
+    "placeholders": {
+      "days": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "noData": "No data.",
+  "topItemsByViews": "Top items by views",
+  "topItemsFailed": "Top items failed: {error}",
+  "@topItemsFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "noEngagementData": "No engagement data yet.",
+  "viewsListens": "{views}v · {listens}l",
+  "@viewsListens": {
+    "placeholders": {
+      "views": { "type": "int", "format": "decimalPattern" },
+      "listens": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "topCategoriesByFavorites": "Top categories by favorites",
+  "topCategoriesFailed": "Top categories failed: {error}",
+  "@topCategoriesFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "noFavoritesYet": "No favorites yet.",
+  "favoriteStars": "{count} ★",
+  "@favoriteStars": {
+    "placeholders": {
+      "count": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "manage": "Manage",
+  "categoriesAndItems": "Categories & items",
+  "signOutQuestion": "Sign out?",
+  "signOutAdminBody": "You will need to sign in again to return to the admin area.",
+
+  "searchUsersHint": "Search by email or display name",
+  "guests": "Guests",
+  "registered": "Registered",
+  "usersLoadFailed": "Failed to load users: {error}",
+  "@usersLoadFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "noUsersMatch": "No users match the filters.",
+  "guestTag": "guest",
+  "favShort": "fav {count}",
+  "@favShort": {
+    "placeholders": {
+      "count": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "progShort": "prog {count}",
+  "@progShort": {
+    "placeholders": {
+      "count": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "guestWithId": "Guest {id}",
+  "@guestWithId": {
+    "placeholders": {
+      "id": { "type": "String" }
+    }
+  },
+  "prev": "Prev",
+  "next": "Next",
+  "pageInfo": "Page {page} / {lastPage}  ·  {total} total",
+  "@pageInfo": {
+    "placeholders": {
+      "page": { "type": "int", "format": "decimalPattern" },
+      "lastPage": { "type": "int", "format": "decimalPattern" },
+      "total": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+
+  "userTitle": "User",
+  "info": "Info",
+  "loadFailed": "Failed to load: {error}",
+  "@loadFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "displayName": "Display name",
+  "role": "Role",
+  "roleAdmin": "ADMIN",
+  "roleUser": "USER",
+  "lastSeen": "Last seen",
+  "created": "Created",
+  "actions": "Actions",
+  "demoteToUser": "Demote to USER",
+  "promoteToAdmin": "Promote to ADMIN",
+  "deleteUser": "Delete user",
+  "ownAccountNote": "You cannot promote, demote, or delete your own account here.",
+  "promoteQuestion": "Promote to ADMIN?",
+  "demoteQuestion": "Demote to USER?",
+  "promoteBody": "This user will gain full admin access.",
+  "demoteBody": "This user will lose admin access.",
+  "updateFailed": "Update failed: {error}",
+  "@updateFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "deleteUserQuestion": "Delete this user?",
+  "deleteUserBody": "This permanently deletes the account, all of their favorites, and all of their progress. This cannot be undone.",
+  "deleteFailed": "Delete failed: {error}",
+  "@deleteFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "failed": "Failed: {error}",
+  "@failed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "noProgressYet": "No progress yet.",
+  "progressViewsListens": "views {views} · listens {listens}",
+  "@progressViewsListens": {
+    "placeholders": {
+      "views": { "type": "int", "format": "decimalPattern" },
+      "listens": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+
+  "editCategory": "Edit category",
+  "newCategory": "New category",
+  "categorySubtitle": "/{slug}  ·  sort {sort}  ·  {count} items",
+  "@categorySubtitle": {
+    "placeholders": {
+      "slug": { "type": "String" },
+      "sort": { "type": "int", "format": "decimalPattern" },
+      "count": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "deleteNamedQuestion": "Delete \"{name}\"?",
+  "@deleteNamedQuestion": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "categoryHasItems": "This category contains {count} item(s). The server will block deletion — set it inactive instead.",
+  "@categoryHasItems": {
+    "placeholders": {
+      "count": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "categoryDeletePermanent": "This permanently deletes the category.",
+
+  "name": "Name",
+  "slug": "Slug",
+  "slugHelper": "lowercase, numbers, hyphens (e.g. animals)",
+  "slugInvalid": "lowercase / digits / hyphens only",
+  "coverImagePath": "Cover image path",
+  "coverImageHelper": "relative, e.g. categories/animals/cover.webp",
+  "colorHex": "Color (hex)",
+  "colorHexHelper": "e.g. #7BAFD4",
+  "colorHexInvalid": "must be a 6-digit hex color",
+  "sortOrder": "Sort order",
+  "nonNegativeInteger": "non-negative integer",
+  "categoryActiveSubtitle": "When off, learners don't see this category.",
+  "saveChanges": "Save changes",
+  "createCategory": "Create category",
+  "saveFailed": "Save failed: {error}",
+  "@saveFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+
+  "noItemsToAdd": "No items yet. Tap New to add one.",
+  "itemSubtitle": "/{slug}  ·  sort {sort}",
+  "@itemSubtitle": {
+    "placeholders": {
+      "slug": { "type": "String" },
+      "sort": { "type": "int", "format": "decimalPattern" }
+    }
+  },
+  "mediaThumb": "thumb",
+  "mediaAudio": "audio",
+  "itemDeletePermanent": "This permanently deletes the item and cascades to anyone who has favorited it or viewed it. This cannot be undone.",
+
+  "editItem": "Edit item",
+  "newItemTitle": "New item",
+  "slugHelperUnique": "lowercase, numbers, hyphens; unique within the category",
+  "imagePath": "Image path",
+  "imagePathHelper": "relative, e.g. items/animals/lion.webp",
+  "thumbnailPathOptional": "Thumbnail path (optional)",
+  "audioPathOptional": "Audio path (optional)",
+  "audioPathHelper": "e.g. audio/animals/lion.mp3",
+  "itemActiveSubtitle": "When off, learners don't see this item.",
+  "createItem": "Create item",
+
+  "couldNotReadFile": "Could not read the selected file.",
+  "uploadFailed": "Upload failed: {error}",
+  "@uploadFailed": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "noImageChosen": "No image chosen yet",
+  "noAudioChosen": "No audio chosen yet",
+  "clear": "Clear",
+  "replace": "Replace",
+  "chooseImage": "Choose image",
+  "chooseAudio": "Choose audio",
+  "tapToChooseImage": "Tap \"Choose image\" to upload",
+
+  "sectionBasics": "Basics",
+  "sectionAppearance": "Appearance",
+  "sectionMedia": "Media",
+  "sectionDisplay": "Display",
+
+  "categoryBasicsCaption": "The name and URL slug for this category.",
+  "categoryAppearanceCaption": "Cover image shown on the category card, plus an accent color.",
+  "categoryDisplayCaption": "Order on the home screen and whether learners can see it.",
+  "coverImageLabel": "Cover image",
+  "coverImageUploadHelper": "Shown on the category tile. JPG / PNG / WEBP.",
+  "sortOrderHelper": "Lower numbers appear first.",
+  "uploadCoverImagePrompt": "Please upload a cover image.",
+
+  "itemBasicsCaption": "What learners will see and how the URL is built.",
+  "itemMediaCaption": "Pick files from your device — they upload as soon as you choose them.",
+  "itemDisplayCaption": "Where this item appears in the category and whether learners can see it.",
+  "imageLabel": "Image",
+  "imageUploadHelper": "Shown big on the learning card. JPG / PNG / WEBP.",
+  "thumbnailLabel": "Thumbnail (optional)",
+  "thumbnailUploadHelper": "Smaller version used in the grid. Leave empty to reuse the main image.",
+  "audioLabel": "Pronunciation audio (optional)",
+  "audioUploadHelper": "MP3 / M4A / AAC / WAV / OGG — plays when the learner taps the speaker.",
+  "sortOrderItemHelper": "Lower numbers appear first in the category.",
+  "uploadImagePrompt": "Please upload an image."
+}

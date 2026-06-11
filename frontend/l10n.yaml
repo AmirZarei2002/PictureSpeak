@@ -1,0 +1,10 @@
+# Configuration for Flutter's gen-l10n tool. It reads the .arb dictionaries in
+# `arb-dir` and generates the typed `AppLocalizations` class used across the UI.
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+output-class: AppLocalizations
+
+# Return a non-null AppLocalizations from `.of(context)` so call sites read
+# `AppLocalizations.of(context).signIn` instead of `...!.signIn`.
+nullable-getter: false
