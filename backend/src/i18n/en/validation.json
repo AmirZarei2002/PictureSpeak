@@ -1,0 +1,21 @@
+{
+  "IS_EMAIL": "{property} must be a valid email address",
+  "IS_STRONG_PASSWORD": "{property} must be at least 8 characters and include uppercase, lowercase, a digit, and a special character (@$!%*?&)",
+  "IS_STRING": "{property} must be a string",
+  "IS_NOT_EMPTY": "{property} is required",
+  "IS_OPTIONAL": "{property} is optional",
+  "IS_INT": "{property} must be an integer",
+  "IS_NUMBER": "{property} must be a number",
+  "IS_BOOLEAN": "{property} must be a boolean",
+  "IS_DATE": "{property} must be a valid date",
+  "IS_UUID": "{property} must be a valid UUID",
+  "IS_URL": "{property} must be a valid URL",
+  "IS_ENUM": "{property} must be one of the allowed values",
+  "MIN": "{property} must be greater than or equal to {constraints.0}",
+  "MAX": "{property} must be less than or equal to {constraints.0}",
+  "MIN_LENGTH": "{property} must be at least {constraints.0} characters long",
+  "MAX_LENGTH": "{property} must be at most {constraints.0} characters long",
+  "LENGTH": "{property} must be between {constraints.0} and {constraints.1} characters",
+  "MATCHES": "{property} format is invalid",
+  "VALIDATION_FAILED": "Validation failed"
+}

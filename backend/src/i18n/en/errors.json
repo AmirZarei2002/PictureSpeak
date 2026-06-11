@@ -1,0 +1,8 @@
+{
+  "ENTITY_NOT_FOUND": "{entity} not found",
+  "ENTITY_NOT_FOUND_BY_ID": "{entity} with id {id} not found",
+  "UNAUTHORIZED": "You are not authorized to perform this action",
+  "FORBIDDEN": "You do not have permission to access this resource",
+  "INTERNAL_SERVER_ERROR": "An unexpected error occurred. Please try again later",
+  "TOO_MANY_REQUESTS": "Too many requests. Please slow down"
+}

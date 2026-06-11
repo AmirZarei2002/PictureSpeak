@@ -1,0 +1,11 @@
+{
+  "ADMIN_ONLY": "This action requires administrator privileges",
+  "CANNOT_DELETE_SELF": "Admins cannot delete their own account",
+  "CANNOT_DELETE_LAST_ADMIN": "Cannot delete the last remaining admin",
+  "CANNOT_DEMOTE_LAST_ADMIN": "Cannot demote the last remaining admin",
+  "CATEGORY_NOT_FOUND_BY_ID": "Category {id} not found",
+  "ITEM_NOT_FOUND_BY_ID": "Item {id} not found",
+  "CATEGORY_SLUG_TAKEN": "A category with slug \"{slug}\" already exists",
+  "ITEM_SLUG_TAKEN": "An item with slug \"{slug}\" already exists in this category",
+  "CATEGORY_HAS_ITEMS": "Category has {count} learning item(s). Move or delete them first, or deactivate the category by setting isActive=false"
+}

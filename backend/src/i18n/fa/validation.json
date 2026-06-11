@@ -1,0 +1,21 @@
+{
+  "IS_EMAIL": "مقدار «{property}» باید یک ایمیل معتبر باشد",
+  "IS_STRONG_PASSWORD": "مقدار «{property}» باید حداقل ۸ کاراکتر و شامل حرف بزرگ، حرف کوچک، عدد و یک کاراکتر ویژه (@$!%*?&) باشد",
+  "IS_STRING": "مقدار «{property}» باید یک رشته باشد",
+  "IS_NOT_EMPTY": "مقدار «{property}» الزامی است",
+  "IS_OPTIONAL": "مقدار «{property}» اختیاری است",
+  "IS_INT": "مقدار «{property}» باید یک عدد صحیح باشد",
+  "IS_NUMBER": "مقدار «{property}» باید یک عدد باشد",
+  "IS_BOOLEAN": "مقدار «{property}» باید درست یا نادرست باشد",
+  "IS_DATE": "مقدار «{property}» باید یک تاریخ معتبر باشد",
+  "IS_UUID": "مقدار «{property}» باید یک شناسه معتبر (UUID) باشد",
+  "IS_URL": "مقدار «{property}» باید یک نشانی اینترنتی معتبر باشد",
+  "IS_ENUM": "مقدار «{property}» باید یکی از مقادیر مجاز باشد",
+  "MIN": "مقدار «{property}» باید بزرگ‌تر یا مساوی {constraints.0} باشد",
+  "MAX": "مقدار «{property}» باید کوچک‌تر یا مساوی {constraints.0} باشد",
+  "MIN_LENGTH": "مقدار «{property}» باید حداقل {constraints.0} کاراکتر باشد",
+  "MAX_LENGTH": "مقدار «{property}» باید حداکثر {constraints.0} کاراکتر باشد",
+  "LENGTH": "مقدار «{property}» باید بین {constraints.0} و {constraints.1} کاراکتر باشد",
+  "MATCHES": "قالب «{property}» نامعتبر است",
+  "VALIDATION_FAILED": "خطای اعتبارسنجی"
+}

@@ -1,0 +1,11 @@
+{
+  "language": {
+    "name": "فارسی",
+    "code": "fa",
+    "direction": "rtl"
+  },
+  "yes": "بله",
+  "no": "خیر",
+  "ok": "تأیید",
+  "cancel": "لغو"
+}

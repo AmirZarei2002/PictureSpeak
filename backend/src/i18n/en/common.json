@@ -1,0 +1,11 @@
+{
+  "language": {
+    "name": "English",
+    "code": "en",
+    "direction": "ltr"
+  },
+  "yes": "Yes",
+  "no": "No",
+  "ok": "OK",
+  "cancel": "Cancel"
+}

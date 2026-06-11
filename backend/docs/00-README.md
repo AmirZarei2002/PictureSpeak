@@ -30,6 +30,8 @@ Welcome to the Starter-kit documentation! This is a production-ready NestJS Star
 
 ### Architecture & Patterns
 - **[16-Module-Communication-Best-Practices.md](16-Module-Communication-Best-Practices.md)** - Inter-module dependencies
+- **[17-Internationalization.md](17-Internationalization.md)** - Multi-language support (en/fa)
+- **[18-Admin.md](18-Admin.md)** - Admin module, role-based access, bootstrap
 
 ### Deployment
 - **[DOCKER.md](DOCKER.md)** - Docker setup & deployment
