@@ -1,0 +1,211 @@
+# Root-level compose: brings up the full PictureSpeak stack.
+#
+# Services:
+#   postgres, redis        - infra
+#   migrate, bootstrap-admin - one-shot init jobs (Prisma deploy + admin user)
+#   backend                - NestJS API on :8000
+#   frontend               - Flutter Web served by nginx on :8080
+#
+# Profiles:
+#   apk   - one-shot: compiles a release APK and dumps it to ./frontend/build-output
+#   seed  - one-shot: runs prisma seed
+#
+# Usage:
+#   docker compose up --build              # start postgres+redis+backend+frontend
+#   docker compose --profile apk run --rm frontend-apk-build
+#   docker compose --profile seed run --rm seed
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: PictureSpeak-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-picturespeak}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - picturespeak-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-picturespeak}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: PictureSpeak-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - picturespeak-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # `migrate` and `bootstrap-admin` reuse the backend image (sole owner of
+  # `build:` is the `backend` service). Compose builds all `build:` images
+  # up-front before starting any container, so the
+  # `picturespeak-backend:latest` tag is guaranteed to exist by the time
+  # these one-shots are created.
+  migrate:
+    image: picturespeak-backend:latest
+    container_name: PictureSpeak-migrate
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-picturespeak}?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - picturespeak-net
+    command: ["node", "node_modules/prisma/build/index.js", "migrate", "deploy"]
+    restart: "no"
+    healthcheck:
+      disable: true
+
+  bootstrap-admin:
+    image: picturespeak-backend:latest
+    container_name: PictureSpeak-bootstrap-admin
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-picturespeak}?schema=public
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@picturespeak.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-ChangeMe123!}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - picturespeak-net
+    command: ["node", "dist/scripts/bootstrap-admin.js"]
+    restart: "no"
+    healthcheck:
+      disable: true
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: 22.12.0
+        PNPM_VERSION: 10.4.1
+    image: picturespeak-backend:latest
+    container_name: PictureSpeak-backend
+    restart: unless-stopped
+    ports:
+      - "8000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      API_PUBLIC_URL: ${API_PUBLIC_URL:-http://localhost:8000}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-picturespeak}?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_TTL: 60
+      JWT_SECRET: ${JWT_SECRET:-dev-only-change-me-in-production}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-30d}
+      # Origins the browser may load the frontend from. Includes the
+      # dockerized Flutter Web origin (:8080) plus the legacy direct-hit
+      # origins for backwards compat with the Android-emulator workflow.
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:8080,http://localhost:8000,http://10.0.2.2:8000}
+      CORS_CREDENTIALS: ${CORS_CREDENTIALS:-true}
+      CORS_HEADERS: ${CORS_HEADERS:-Content-Type,Authorization}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@picturespeak.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-ChangeMe123!}
+      FALLBACK_LANGUAGE: ${FALLBACK_LANGUAGE:-en}
+      SWAGGER_ENABLED: ${SWAGGER_ENABLED:-true}
+    volumes:
+      - ./backend/uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+      bootstrap-admin:
+        condition: service_completed_successfully
+    networks:
+      - picturespeak-net
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3000/api/v1/categories',(r)=>process.exit(r.statusCode<500?0:1)).on('error',()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: web
+    image: picturespeak-frontend-web:latest
+    container_name: PictureSpeak-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      - picturespeak-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  seed:
+    image: picturespeak-backend:latest
+    container_name: PictureSpeak-seed
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-picturespeak}?schema=public
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - picturespeak-net
+    command: ["node", "dist/src/prisma/seed.js"]
+    restart: "no"
+    profiles: ["seed"]
+    healthcheck:
+      disable: true
+
+  # One-shot: compile the release APK and drop it into ./frontend/build-output
+  # on the host. Run with:
+  #   docker compose --profile apk run --rm frontend-apk-build
+  frontend-apk-build:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: apk-export
+      args:
+        # Default to the Android-emulator host-loopback address.
+        API_HOST: ${APK_API_HOST:-10.0.2.2:8000}
+    image: picturespeak-frontend-apk:latest
+    container_name: PictureSpeak-frontend-apk-build
+    volumes:
+      - ./frontend/build-output:/out
+    profiles: ["apk"]
+    restart: "no"
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  picturespeak-net:
+    driver: bridge

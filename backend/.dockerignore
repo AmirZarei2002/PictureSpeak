@@ -1,0 +1,89 @@
+# Keep the build context tiny. Everything excluded here is NOT shipped to
+# the Docker daemon, which (a) avoids polluting `COPY . .` and (b) speeds up
+# the first phase of every build.
+#
+# NOTE: prisma/migrations is intentionally NOT ignored — `prisma migrate
+# deploy` reads them at runtime in the `migrate` compose service.
+
+# --- Dependencies (rebuilt in-container) ---
+node_modules/
+jspm_packages/
+bower_components/
+
+# --- Build / cache output ---
+dist/
+build/
+build/Release
+coverage/
+.nyc_output/
+*.lcov
+*.tsbuildinfo
+.eslintcache
+.cache/
+.parcel-cache/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.next/
+.nuxt/
+.out/
+.storybook-out/
+.grunt/
+lib-cov/
+
+# --- npm / yarn / pnpm runtime ---
+.npm/
+.yarn-integrity
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.tgz
+
+# --- Tests (not needed at runtime) ---
+test/
+tests/
+__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# --- Env files (NEVER bake secrets into the image) ---
+.env
+.env.*
+
+# --- Logs / runtime data ---
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+.node_repl_history
+
+# --- VCS / docs / IDE / OS ---
+.git/
+.gitignore
+.gitattributes
+.github/
+README.md
+docs/
+*.md
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Docker / Compose (self) ---
+Dockerfile
+docker-compose.yml
+docker-compose.*.yml
+.dockerignore
+
+# --- Local-only artifacts ---
+uploads/
+.lock-wscript

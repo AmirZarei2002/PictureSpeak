@@ -1,0 +1,155 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: PictureSpeak-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-picturespeak}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - PictureSpeak-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-picturespeak}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: PictureSpeak-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - PictureSpeak-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # The image is built by the `app` service (see below). `migrate` runs before
+  # `app` starts, but Compose builds all images up-front, so the tag is ready
+  # by the time this container is created.
+  migrate:
+    image: picturespeak-backend:latest
+    container_name: PictureSpeak-migrate
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-picturespeak}?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - PictureSpeak-network
+    # The runner image no longer ships pnpm (smaller, no network at runtime).
+    # Invoke the Prisma CLI through node + its package entry point instead.
+    command: ["node", "node_modules/prisma/build/index.js", "migrate", "deploy"]
+    restart: "no"
+    healthcheck:
+      disable: true
+
+  # Idempotent: creates the admin if missing, promotes an existing user to
+  # ADMIN if needed, no-ops if already an admin. Runs after `migrate` so the
+  # User table exists, and `app` waits for it to complete.
+  bootstrap-admin:
+    image: picturespeak-backend:latest
+    container_name: PictureSpeak-bootstrap-admin
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-picturespeak}?schema=public
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@picturespeak.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-ChangeMe123!}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - PictureSpeak-network
+    command: ["node", "dist/scripts/bootstrap-admin.js"]
+    restart: "no"
+    healthcheck:
+      disable: true
+
+  app:
+    # Sole owner of the build. `migrate`, `bootstrap-admin`, and `seed` reuse
+    # this tag. Compose builds images before starting any container.
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Pass through pnpm/node pin so a single source of truth lives in compose.
+      args:
+        NODE_VERSION: 22.12.0
+        PNPM_VERSION: 10.4.1
+    image: picturespeak-backend:latest
+    container_name: PictureSpeak-app
+    restart: unless-stopped
+    ports:
+      - "8000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      API_PUBLIC_URL: ${API_PUBLIC_URL:-http://localhost:8000}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-picturespeak}?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_TTL: 60
+      JWT_SECRET: ${JWT_SECRET:-dev-only-change-me-in-production}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-30d}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:8000,http://10.0.2.2:8000}
+      CORS_CREDENTIALS: ${CORS_CREDENTIALS:-true}
+      CORS_HEADERS: ${CORS_HEADERS:-Content-Type,Authorization}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@picturespeak.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-ChangeMe123!}
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+      bootstrap-admin:
+        condition: service_completed_successfully
+    networks:
+      - PictureSpeak-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3000/api/v1/categories',(r)=>process.exit(r.statusCode<500?0:1)).on('error',()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  seed:
+    image: picturespeak-backend:latest
+    container_name: PictureSpeak-seed
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-picturespeak}?schema=public
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - PictureSpeak-network
+    command: ["node", "dist/src/prisma/seed.js"]
+    restart: "no"
+    profiles: ["seed"]
+    healthcheck:
+      disable: true
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  PictureSpeak-network:
+    driver: bridge

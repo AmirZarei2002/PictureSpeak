@@ -1,0 +1,39 @@
+# Keep the Docker build context lean. Anything we list here is invisible to
+# the Dockerfile's COPY commands and never uploaded to the daemon.
+
+# Flutter build artefacts & caches
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs / coverage
+*.log
+/coverage/
+
+# Platform folders the web build never touches (the apk-build target still
+# needs android/ — keep that one OUT of this list).
+ios/
+linux/
+macos/
+windows/
+
+# Docker artefacts at the frontend root. Keep nginx.conf — the web target
+# COPYs it explicitly.
+Dockerfile
+.dockerignore
+build-output/

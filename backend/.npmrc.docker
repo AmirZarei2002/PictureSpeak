@@ -1,0 +1,62 @@
+# Used only inside Docker builds (copied in as .npmrc by the Dockerfile).
+# Host installs do NOT pick this up.
+#
+# Tuned for slow / lossy networks. See Dockerfile for context.
+
+# -----------------------------------------------------------------------------
+# Supply-chain policy
+# -----------------------------------------------------------------------------
+# The host pnpm has a `minimum-release-age` supply-chain policy that re-verifies
+# every lockfile entry against the npm registry. The lockfile is already trusted
+# (committed after passing the policy on the host); re-checking it in-container
+# only adds network round-trips that fail on flaky links. Disable in-container.
+minimum-release-age=0
+
+# -----------------------------------------------------------------------------
+# Retry / timeout tuning
+# -----------------------------------------------------------------------------
+# 10 retries per package: enough headroom for a connection that drops every
+# few seconds (which is what 13-30 KiB/s average speed implies).
+fetch-retries=10
+# Start backoff at 20s, cap at 2 min — gives the link time to recover between
+# attempts without giving up.
+fetch-retry-mintimeout=20000
+fetch-retry-maxtimeout=120000
+# A single tarball can take up to 10 minutes at 13 KiB/s (e.g. prisma engines
+# are ~50-100 MB). Without this, large packages time out before finishing.
+fetch-timeout=600000
+
+# -----------------------------------------------------------------------------
+# Bandwidth shaping
+# -----------------------------------------------------------------------------
+# Under packet loss, every extra parallel connection competes for the same
+# congested link AND multiplies the number of in-flight requests that can fail
+# half-way (forcing a full retry). Reducing concurrency from pnpm's default
+# (16) to 4 typically INCREASES total throughput on lossy links because
+# fewer retries are needed.
+network-concurrency=4
+# Cap concurrent install scripts (prisma generate, bcrypt build, etc.) so a
+# small container CPU isn't thrashed during long-running installs.
+child-concurrency=4
+
+# -----------------------------------------------------------------------------
+# Cache behaviour
+# -----------------------------------------------------------------------------
+# Prefer the local pnpm store before hitting the registry. Combined with the
+# BuildKit cache mount, a warm build performs ZERO network requests for any
+# package already in the store.
+prefer-offline=true
+# Keep verifying store integrity (default) — cheap on a local SSD and catches
+# corruption from interrupted downloads.
+
+# -----------------------------------------------------------------------------
+# Registry
+# -----------------------------------------------------------------------------
+# Explicit registry on one line — easy to swap to a regional mirror by
+# overriding this single setting (e.g. via a build arg or CI variable).
+# Examples: https://registry.npmmirror.com/  https://registry.npm.taobao.org/
+registry=https://registry.npmjs.org/
+
+# Quieter logs in CI — no spinner repaint over a throttled stdout.
+progress=false
+loglevel=warn
