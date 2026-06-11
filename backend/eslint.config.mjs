@@ -47,11 +47,6 @@ export default tseslint.config(
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
 
-      // ============================================
-      // Import Pattern Enforcement Rules
-      // ============================================
-
-      // Prevent importing from 'src/' paths - use path aliases instead
       'no-restricted-imports': [
         'error',
         {
@@ -75,17 +70,16 @@ export default tseslint.config(
         },
       ],
 
-      // Import order for better readability
       'import/order': [
         'error',
         {
           groups: [
-            'builtin', // Node.js built-in modules
-            'external', // External packages (npm)
-            'internal', // Internal path aliases (@common, @shared, etc.)
-            'parent', // Parent directories (..)
-            'sibling', // Same directory (./)
-            'index', // Index files (./index)
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
           ],
           pathGroups: [
             {
@@ -133,21 +127,15 @@ export default tseslint.config(
         },
       ],
 
-      // Prevent importing from parent folders across modules
-      'import/no-relative-parent-imports': 'off', // We allow relative parent imports within the same module
+      'import/no-relative-parent-imports': 'off',
 
-      // Ensure imports are at the top
       'import/first': 'error',
 
-      // Ensure proper newline after imports
       'import/newline-after-import': 'error',
 
-      // Prevent duplicate imports
       'import/no-duplicates': 'error',
     },
   },
-  // Module composition roots are allowed to wire infrastructure internally.
-  // Other files must not import from infrastructure paths directly.
   {
     files: ['src/modules/**/**.module.ts'],
     rules: {
@@ -165,11 +153,10 @@ export default tseslint.config(
       ],
     },
   },
-  // Special rules for tests
   {
     files: ['**/*.spec.ts', '**/*.test.ts', '**/test/**/*.ts'],
     rules: {
-      'no-restricted-imports': 'off', // Tests can import from anywhere
+      'no-restricted-imports': 'off',
     },
   },
 );

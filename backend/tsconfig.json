@@ -6,6 +6,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
@@ -23,7 +25,9 @@
       "@config/*": ["./src/config/*"],
       "@prisma/*": ["./src/prisma/*"],
       "@modules/*": ["./src/modules/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@docs/*": ["./src/docs/*"],
+      "@i18n/*": ["./src/i18n/*"]
     }
   }
 }
