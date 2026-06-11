@@ -1,18 +1,32 @@
-import { PaginationQueryDto } from '@common/dtos/pagination-query.dto';
-import { PaginatedResult } from '@common/types/paginated-result.type';
-import { AssignRoleToUserDto } from '@modules/user/application/dto/assign-role-to-user.dto';
+import { Role, TextScale, ThemeMode } from '@prisma/client';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 
+export interface CreateUserData {
+  email?: string | null;
+  passwordHash?: string | null;
+  isGuest: boolean;
+  displayName?: string | null;
+  role?: Role;
+}
+
+export interface UpdateUserData {
+  email?: string | null;
+  passwordHash?: string | null;
+  isGuest?: boolean;
+  displayName?: string | null;
+  role?: Role;
+  textScale?: TextScale;
+  themeMode?: ThemeMode;
+  speechRate?: number;
+  soundEffectsOn?: boolean;
+}
+
 export interface ICreateUserRepository {
-  create(user: Partial<UserEntity>): Promise<UserEntity>;
+  create(data: CreateUserData): Promise<UserEntity>;
 }
 
 export interface IUpdateUserRepository {
-  update(id: string, user: Partial<UserEntity>): Promise<UserEntity | null>;
-}
-
-export interface IFindUsersRepository {
-  findAll(query: PaginationQueryDto): Promise<PaginatedResult<UserEntity>>;
+  update(id: string, data: UpdateUserData): Promise<UserEntity | null>;
 }
 
 export interface IFindUserByIdRepository {
@@ -21,20 +35,4 @@ export interface IFindUserByIdRepository {
 
 export interface IFindUserByEmailRepository {
   findByEmail(email: string): Promise<UserEntity | null>;
-}
-
-export interface IDeleteUserRepository {
-  delete(id: string): Promise<void>;
-}
-
-export interface IAssignRoleRepository {
-  assignRole(userId: string, data: AssignRoleToUserDto): Promise<void>;
-}
-
-export interface IRevokeRoleRepository {
-  revokeRole(userId: string): Promise<void>;
-}
-
-export interface IUserProvisionService {
-  findOrCreateUser(email: string): Promise<UserEntity>;
 }

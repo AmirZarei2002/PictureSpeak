@@ -1,14 +1,18 @@
-import { RoleEntity } from '@modules/role/domain/entities/role.entity';
+import { Role, TextScale, ThemeMode } from '@prisma/client';
 
 export class UserEntity {
   constructor(
     public readonly id: string,
-    public readonly roleId: string,
-    public readonly email: string,
-    public readonly password: string,
-    public readonly name: string,
+    public readonly email: string | null,
+    public readonly isGuest: boolean,
+    public readonly displayName: string | null,
+    public readonly role: Role,
+    public readonly textScale: TextScale,
+    public readonly themeMode: ThemeMode,
+    public readonly speechRate: number,
+    public readonly soundEffectsOn: boolean,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
-    public readonly role?: RoleEntity,
+    public readonly passwordHash: string | null = null,
   ) {}
 }

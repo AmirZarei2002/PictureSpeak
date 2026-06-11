@@ -6,34 +6,94 @@ datasource db {
   provider = "postgresql"
 }
 
-model Role {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  permissions Permission[]
-  users       User[]
+enum TextScale {
+  normal
+  large
+  xlarge
 }
 
-model Permission {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  action    String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+enum ThemeMode {
+  system
+  light
+  dark
+  high_contrast
+}
 
-  roles Role[]
+enum Role {
+  USER
+  ADMIN
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id             String    @id @default(uuid())
+  email          String?   @unique
+  passwordHash   String?
+  isGuest        Boolean   @default(true)
+  displayName    String?
+  role           Role      @default(USER)
+  textScale      TextScale @default(normal)
+  themeMode      ThemeMode @default(system)
+  speechRate     Decimal   @default(1.0) @db.Decimal(3, 2)
+  soundEffectsOn Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
-  roleId String
-  role   Role   @relation(fields: [roleId], references: [id])
+  favorites Favorite[]
+  progress  Progress[]
+}
+
+model Category {
+  id             String  @id @default(uuid())
+  slug           String  @unique
+  name           String
+  coverImagePath String
+  colorHex       String  @default("#7BAFD4")
+  sortOrder      Int     @default(0)
+  isActive       Boolean @default(true)
+
+  items LearningItem[]
+}
+
+model LearningItem {
+  id            String  @id @default(uuid())
+  categoryId    String
+  slug          String
+  name          String
+  imagePath     String
+  thumbnailPath String?
+  audioPath     String?
+  sortOrder     Int     @default(0)
+  isActive      Boolean @default(true)
+
+  category  Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  favorites Favorite[]
+  progress  Progress[]
+
+  @@unique([categoryId, slug])
+  @@index([categoryId, sortOrder])
+}
+
+model Favorite {
+  userId    String
+  itemId    String
+  createdAt DateTime @default(now())
+
+  user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item LearningItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@id([userId, itemId])
+}
+
+model Progress {
+  userId      String
+  itemId      String
+  viewCount   Int      @default(0)
+  listenCount Int      @default(0)
+  firstSeenAt DateTime @default(now())
+  lastSeenAt  DateTime @default(now())
+
+  user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item LearningItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@id([userId, itemId])
 }

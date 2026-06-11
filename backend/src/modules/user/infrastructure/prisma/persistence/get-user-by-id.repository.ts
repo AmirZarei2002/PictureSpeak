@@ -9,10 +9,8 @@ export class GetUserByIdRepository implements IFindUserByIdRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findById(id: string): Promise<UserEntity | null> {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-      include: { role: true },
-    });
-    return user ? UserMapper.toEntity(user) : null;
+    const user = await this.prisma.user.findUnique({ where: { id } });
+    if (!user) return null;
+    return UserMapper.toEntity(user);
   }
 }
