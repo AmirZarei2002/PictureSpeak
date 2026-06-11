@@ -1,7 +1,9 @@
+import { Role } from '@prisma/client';
+
 export type AuthenticatedRequest = {
   user?: {
-    role?: {
-      name?: string;
-    };
+    id: string;
+    isGuest: boolean;
+    role: Role;
   };
 };
