@@ -31,9 +31,31 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Official Flutter localization support. `flutter_localizations` provides the
+  # Material/Cupertino/Widgets translations (e.g. date pickers, tooltips) for
+  # every supported locale; `intl` powers message formatting and Persian digits.
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  go_router: ^17.3.0
+  hooks_riverpod: ^3.3.1
+  flutter_hooks: ^0.21.3+1
+  dio: ^5.9.2
+  cached_network_image: ^3.4.1
+  flutter_animate: ^4.5.2
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.12.0
+  just_audio: ^0.10.5
+  flutter_tts: ^4.2.5
+  connectivity_plus: ^7.1.1
+  # Cross-platform native file picker — used by the admin uploader for
+  # picking images / thumbnails / audio off the device before posting to
+  # /admin/upload. (Mobile, desktop, and web all supported.)
+  file_picker: ^11.0.2
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +67,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+  freezed: ^3.2.5
+  build_runner: ^2.15.0
+  json_serializable: ^6.14.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -52,10 +77,29 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+  # Generate the typed `AppLocalizations` class from the .arb files in lib/l10n
+  # (configured by l10n.yaml at the project root). Runs automatically on
+  # `flutter pub get` and build.
+  generate: true
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # Vazirmatn — a modern, highly legible Persian/Arabic typeface. Bundled (not
+  # fetched at runtime) so the app renders Persian correctly even offline.
+  fonts:
+    - family: Vazirmatn
+      fonts:
+        - asset: assets/fonts/Vazirmatn-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Vazirmatn-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Vazirmatn-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Vazirmatn-Bold.ttf
+          weight: 700
 
   # To add assets to your application, add an assets section, like this:
   # assets:
