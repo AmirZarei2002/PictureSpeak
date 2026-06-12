@@ -8,13 +8,16 @@ const String _apiHost = String.fromEnvironment(
   'API_HOST',
   defaultValue: '10.0.2.2:8000',
 );
+const String _apiScheme = String.fromEnvironment(
+  'API_SCHEME',
+  defaultValue: 'http',
+);
 
-// On web the app is served by nginx, which reverse-proxies /api and /static
-// to the backend container — using relative URLs keeps requests same-origin
-// (no CORS) and works regardless of the host:port the user opened.
-final String apiBaseUrl = kIsWeb ? '/api/v1' : 'http://$_apiHost/api/v1';
+final String apiBaseUrl =
+    kIsWeb ? '/api/v1' : '$_apiScheme://$_apiHost/api/v1';
 
-final String mediaBaseUrl = kIsWeb ? '/static' : 'http://$_apiHost/static';
+final String mediaBaseUrl =
+    kIsWeb ? '/static' : '$_apiScheme://$_apiHost/static';
 
 String mediaUrl(String relativePath) => '$mediaBaseUrl/$relativePath';
 
