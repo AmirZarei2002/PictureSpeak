@@ -1,11 +1,12 @@
 # syntax=docker/dockerfile:1.7
 #
 # Multi-stage build for the NestJS backend.
-# Optimized for SLOW / LOSSY networks: BuildKit cache mounts, pinned pnpm,
-# minimal network round-trips, and a single dependency download path.
+# Optimized for SLOW / LOSSY networks: pinned pnpm, minimal network round-trips,
+# and a single dependency download path.
 #
-# Build with BuildKit (default in Docker 23+ / Compose v2):
-#   DOCKER_BUILDKIT=1 docker build -t picturespeak-backend .
+# Note: BuildKit cache mounts were removed for Railway compatibility —
+# Railway's builder rejects cache-mount IDs that don't carry its internal
+# cacheKey prefix (not resolvable at Dockerfile parse time).
 
 # ---- Build-time arguments (override with --build-arg if you need to bump) ----
 ARG NODE_VERSION=22.12.0
@@ -44,11 +45,8 @@ RUN npm config set fetch-retries 10 \
 ARG PNPM_VERSION
 ENV PNPM_HOME=/pnpm
 ENV PATH=$PNPM_HOME:$PATH
-RUN --mount=type=cache,id=npm-cache,target=/root/.npm,sharing=locked \
-    npm install -g --prefer-offline pnpm@${PNPM_VERSION}
+RUN npm install -g --prefer-offline pnpm@${PNPM_VERSION}
 
-# Force every pnpm invocation in every stage to use the SAME store path,
-# which we will then mount as a BuildKit cache below.
 RUN pnpm config set store-dir /pnpm/store \
  && pnpm config set package-import-method copy
 
@@ -70,17 +68,11 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 # .npmrc.docker carries network/retry tuning for in-container pnpm.
 COPY .npmrc.docker ./.npmrc
 
-# THE critical optimisation for slow networks:
-#  - --mount=type=cache (sharing=locked): persistent pnpm content-addressable
-#    store reused across builds. Second build downloads ~zero bytes.
 #  - --frozen-lockfile: hard-fail on lockfile drift (reproducibility).
-#  - --prefer-offline: hit the store first, only fall back to the registry
-#    for genuinely missing tarballs. Skips the metadata round-trip on cache
-#    hits (no HTTP per package when the store is warm).
-#  - --reporter=append-only: cleaner logs in CI; avoids spinner repaint noise
-#    when stdout is throttled by slow output.
-RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store,sharing=locked \
-    pnpm install --frozen-lockfile --prefer-offline --reporter=append-only
+#  - --prefer-offline: hit the local store first when present, only fall back
+#    to the registry for missing tarballs.
+#  - --reporter=append-only: cleaner CI logs; avoids spinner repaint noise.
+RUN pnpm install --frozen-lockfile --prefer-offline --reporter=append-only
 
 ############################################################
 # Stage 3: builder — generate Prisma client, compile TS, prune dev deps
@@ -101,12 +93,9 @@ RUN pnpm exec prisma generate
 # Compile TS -> dist/
 RUN pnpm run build
 
-# Strip dev dependencies in-place. This avoids a SECOND `pnpm install --prod`
-# pass against the registry (which the old Dockerfile did in a separate
-# `prod-deps` stage — doubling the download volume on a slow link).
-# Cache mount stays attached so prune can re-link from the store if needed.
-RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store,sharing=locked \
-    pnpm prune --prod --config.confirmModulesPurge=false
+# Strip dev dependencies in-place. Avoids a second `pnpm install --prod`
+# pass against the registry that a separate prod-deps stage would require.
+RUN pnpm prune --prod --config.confirmModulesPurge=false
 
 ############################################################
 # Stage 4: runner — minimal final image
@@ -137,8 +126,14 @@ COPY --from=builder --chown=nestjs:nodejs /app/prisma            ./prisma
 COPY --from=builder --chown=nestjs:nodejs /app/prisma.config.ts  ./prisma.config.ts
 COPY --from=builder --chown=nestjs:nodejs /app/package.json      ./package.json
 
-# Writable mount points for uploads and logs (also bound from compose).
-RUN mkdir -p uploads logs && chown -R nestjs:nodejs uploads logs
+# Ship the seeded media assets (category covers, item images, audio) so the
+# `/static/...` endpoint can serve them. Comes from the build context, not
+# the builder stage, because nest build doesn't touch `uploads/`.
+# NOTE: this filesystem is ephemeral on Railway — admin-uploaded files added
+# after deploy are lost on the next redeploy until you attach a Railway
+# Volume at /app/uploads (or move media to S3 / R2).
+COPY --chown=nestjs:nodejs uploads ./uploads
+RUN mkdir -p logs && chown -R nestjs:nodejs logs
 
 USER nestjs
 
@@ -150,4 +145,10 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
 # tini reaps zombies and forwards signals — important for clean shutdown
 # of the NestJS process inside Compose / Kubernetes.
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["node", "dist/src/main.js"]
+# On every container start:
+#   1. apply any pending Prisma migrations,
+#   2. bootstrap the admin user (no-op if one already exists),
+#   3. upsert seed content (idempotent, no-op when nothing changed),
+#   4. exec into node — `exec` swaps the shell with node so SIGTERM
+#      (from Railway / Compose) reaches the Node process directly.
+CMD ["sh", "-c", "./node_modules/.bin/prisma migrate deploy && node dist/scripts/bootstrap-admin.js && node dist/src/prisma/seed.js && exec node dist/src/main.js"]
