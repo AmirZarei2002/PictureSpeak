@@ -22,7 +22,7 @@ export class GetUserDetailRepository implements IGetUserDetailRepository {
         soundEffectsOn: true,
         createdAt: true,
         updatedAt: true,
-        _count: { select: { favorites: true, progress: true } },
+        _count: { select: { progress: true } },
         progress: {
           select: { lastSeenAt: true },
           orderBy: { lastSeenAt: 'desc' },
@@ -45,7 +45,6 @@ export class GetUserDetailRepository implements IGetUserDetailRepository {
       user.soundEffectsOn,
       user.createdAt,
       user.updatedAt,
-      user._count.favorites,
       user._count.progress,
       user.progress[0]?.lastSeenAt ?? null,
     );

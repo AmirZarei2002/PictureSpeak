@@ -224,12 +224,6 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get home;
 
-  /// No description provided for @favorites.
-  ///
-  /// In en, this message translates to:
-  /// **'Favorites'**
-  String get favorites;
-
   /// No description provided for @progress.
   ///
   /// In en, this message translates to:
@@ -421,54 +415,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{current} of {total}'**
   String cardPosition(int current, int total);
-
-  /// No description provided for @favoritesLoadError.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not load favorites.'**
-  String get favoritesLoadError;
-
-  /// No description provided for @practiceAll.
-  ///
-  /// In en, this message translates to:
-  /// **'Practice all'**
-  String get practiceAll;
-
-  /// No description provided for @favoritesEmpty.
-  ///
-  /// In en, this message translates to:
-  /// **'Tap the ♥ on any word to save it here.'**
-  String get favoritesEmpty;
-
-  /// No description provided for @removeFromFavorites.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove from favorites'**
-  String get removeFromFavorites;
-
-  /// No description provided for @addToFavorites.
-  ///
-  /// In en, this message translates to:
-  /// **'Add to favorites'**
-  String get addToFavorites;
-
-  /// No description provided for @removedFromFavorites.
-  ///
-  /// In en, this message translates to:
-  /// **'Removed from favorites'**
-  String get removedFromFavorites;
-
-  /// No description provided for @undo.
-  ///
-  /// In en, this message translates to:
-  /// **'Undo'**
-  String get undo;
-
-  /// No description provided for @favoriteUpdateError.
-  ///
-  /// In en, this message translates to:
-  /// **'Couldn\'t update favorites'**
-  String get favoriteUpdateError;
 
   /// No description provided for @progressLoadError.
   ///
@@ -752,30 +698,6 @@ abstract class AppLocalizations {
   /// **'{views}v · {listens}l'**
   String viewsListens(int views, int listens);
 
-  /// No description provided for @topCategoriesByFavorites.
-  ///
-  /// In en, this message translates to:
-  /// **'Top categories by favorites'**
-  String get topCategoriesByFavorites;
-
-  /// No description provided for @topCategoriesFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Top categories failed: {error}'**
-  String topCategoriesFailed(Object error);
-
-  /// No description provided for @noFavoritesYet.
-  ///
-  /// In en, this message translates to:
-  /// **'No favorites yet.'**
-  String get noFavoritesYet;
-
-  /// No description provided for @favoriteStars.
-  ///
-  /// In en, this message translates to:
-  /// **'{count} ★'**
-  String favoriteStars(int count);
-
   /// No description provided for @manage.
   ///
   /// In en, this message translates to:
@@ -835,12 +757,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'guest'**
   String get guestTag;
-
-  /// No description provided for @favShort.
-  ///
-  /// In en, this message translates to:
-  /// **'fav {count}'**
-  String favShort(int count);
 
   /// No description provided for @progShort.
   ///
@@ -995,7 +911,7 @@ abstract class AppLocalizations {
   /// No description provided for @deleteUserBody.
   ///
   /// In en, this message translates to:
-  /// **'This permanently deletes the account, all of their favorites, and all of their progress. This cannot be undone.'**
+  /// **'This permanently deletes the account and all of their progress. This cannot be undone.'**
   String get deleteUserBody;
 
   /// No description provided for @deleteFailed.
@@ -1175,7 +1091,7 @@ abstract class AppLocalizations {
   /// No description provided for @itemDeletePermanent.
   ///
   /// In en, this message translates to:
-  /// **'This permanently deletes the item and cascades to anyone who has favorited it or viewed it. This cannot be undone.'**
+  /// **'This permanently deletes the item and cascades to anyone who has viewed it. This cannot be undone.'**
   String get itemDeletePermanent;
 
   /// No description provided for @editItem.

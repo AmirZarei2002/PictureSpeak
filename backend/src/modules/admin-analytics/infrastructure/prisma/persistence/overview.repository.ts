@@ -17,7 +17,6 @@ export class OverviewRepository implements IOverviewRepository {
       activeCategories,
       totalItems,
       activeItems,
-      totalFavorites,
       totalProgressRows,
     ] = await Promise.all([
       this.prisma.user.count(),
@@ -27,7 +26,6 @@ export class OverviewRepository implements IOverviewRepository {
       this.prisma.category.count({ where: { isActive: true } }),
       this.prisma.learningItem.count(),
       this.prisma.learningItem.count({ where: { isActive: true } }),
-      this.prisma.favorite.count(),
       this.prisma.progress.count(),
     ]);
 
@@ -40,7 +38,6 @@ export class OverviewRepository implements IOverviewRepository {
       activeCategories,
       totalItems,
       activeItems,
-      totalFavorites,
       totalProgressRows,
     );
   }

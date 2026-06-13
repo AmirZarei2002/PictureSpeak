@@ -7,7 +7,6 @@ import { AdminAnalyticsModule } from './modules/admin-analytics/admin-analytics.
 import { AdminUserModule } from './modules/admin-user/admin-user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ContentModule } from './modules/content/content.module';
-import { FavoritesModule } from './modules/favorites/favorites.module';
 import { ProgressModule } from './modules/progress/progress.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { UserModule } from './modules/user/user.module';
@@ -38,7 +37,6 @@ import { CustomLoggerService } from './shared/services/custom-logger.service';
     UserModule,
     AuthModule,
     ContentModule,
-    FavoritesModule,
     ProgressModule,
     AdminUserModule,
     AdminAnalyticsModule,

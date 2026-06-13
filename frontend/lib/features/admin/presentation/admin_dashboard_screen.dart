@@ -21,7 +21,6 @@ class AdminDashboardScreen extends ConsumerWidget {
             onPressed: () {
               ref.invalidate(analyticsOverviewProvider);
               ref.invalidate(analyticsTopItemsProvider);
-              ref.invalidate(analyticsTopCategoriesProvider);
               ref.invalidate(analyticsActiveUsersProvider);
             },
           ),
@@ -36,7 +35,6 @@ class AdminDashboardScreen extends ConsumerWidget {
         onRefresh: () async {
           ref.invalidate(analyticsOverviewProvider);
           ref.invalidate(analyticsTopItemsProvider);
-          ref.invalidate(analyticsTopCategoriesProvider);
           ref.invalidate(analyticsActiveUsersProvider);
         },
         child: ListView(
@@ -47,8 +45,6 @@ class AdminDashboardScreen extends ConsumerWidget {
             _ActiveUsersSection(),
             SizedBox(height: 24),
             _TopItemsSection(),
-            SizedBox(height: 24),
-            _TopCategoriesSection(),
             SizedBox(height: 24),
             _NavSection(),
           ],
@@ -103,12 +99,6 @@ class _OverviewSection extends ConsumerWidget {
             sub: l10n.activeCount(o.activeItems),
             icon: Icons.image,
             color: Colors.teal,
-          ),
-          _StatCard(
-            label: l10n.favorites,
-            value: context.localizedNumber(o.totalFavorites),
-            icon: Icons.favorite,
-            color: Colors.pink,
           ),
           _StatCard(
             label: l10n.progressRows,
@@ -351,65 +341,6 @@ class _TopItemsSection extends ConsumerWidget {
       ),
     );
   }
-}
-
-
-class _TopCategoriesSection extends ConsumerWidget {
-  const _TopCategoriesSection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final async = ref.watch(analyticsTopCategoriesProvider);
-    final l10n = context.l10n;
-    return _SectionCard(
-      title: l10n.topCategoriesByFavorites,
-      child: async.when(
-        loading: () => const _SectionLoading(),
-        error: (e, _) => _SectionError(message: l10n.topCategoriesFailed(e)),
-        data: (cats) {
-          if (cats.isEmpty) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Text(l10n.noFavoritesYet),
-            );
-          }
-          return Column(
-            children: [
-              for (final c in cats)
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  dense: true,
-                  leading: CircleAvatar(
-                    radius: 14,
-                    backgroundColor: _parseColor(c.colorHex),
-                    child: Text(
-                      c.categoryName.isNotEmpty
-                          ? c.categoryName[0].toUpperCase()
-                          : '?',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  title: Text(c.categoryName),
-                  trailing: Text(
-                    l10n.favoriteStars(c.favoriteCount),
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
-Color _parseColor(String hex) {
-  final cleaned = hex.replaceFirst('#', '');
-  return Color(int.parse('0xff$cleaned'));
 }
 
 

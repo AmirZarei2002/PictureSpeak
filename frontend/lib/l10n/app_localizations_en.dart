@@ -72,9 +72,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home => 'Home';
 
   @override
-  String get favorites => 'Favorites';
-
-  @override
   String get progress => 'Progress';
 
   @override
@@ -210,30 +207,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
     return '$currentString of $totalString';
   }
-
-  @override
-  String get favoritesLoadError => 'Could not load favorites.';
-
-  @override
-  String get practiceAll => 'Practice all';
-
-  @override
-  String get favoritesEmpty => 'Tap the ♥ on any word to save it here.';
-
-  @override
-  String get removeFromFavorites => 'Remove from favorites';
-
-  @override
-  String get addToFavorites => 'Add to favorites';
-
-  @override
-  String get removedFromFavorites => 'Removed from favorites';
-
-  @override
-  String get undo => 'Undo';
-
-  @override
-  String get favoriteUpdateError => 'Couldn\'t update favorites';
 
   @override
   String get progressLoadError => 'Could not load progress.';
@@ -424,26 +397,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get topCategoriesByFavorites => 'Top categories by favorites';
-
-  @override
-  String topCategoriesFailed(Object error) {
-    return 'Top categories failed: $error';
-  }
-
-  @override
-  String get noFavoritesYet => 'No favorites yet.';
-
-  @override
-  String favoriteStars(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return '$countString ★';
-  }
-
-  @override
   String get manage => 'Manage';
 
   @override
@@ -475,15 +428,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get guestTag => 'guest';
-
-  @override
-  String favShort(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return 'fav $countString';
-  }
 
   @override
   String progShort(int count) {
@@ -588,7 +532,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteUserBody =>
-      'This permanently deletes the account, all of their favorites, and all of their progress. This cannot be undone.';
+      'This permanently deletes the account and all of their progress. This cannot be undone.';
 
   @override
   String deleteFailed(Object error) {
@@ -721,7 +665,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get itemDeletePermanent =>
-      'This permanently deletes the item and cascades to anyone who has favorited it or viewed it. This cannot be undone.';
+      'This permanently deletes the item and cascades to anyone who has viewed it. This cannot be undone.';
 
   @override
   String get editItem => 'Edit item';

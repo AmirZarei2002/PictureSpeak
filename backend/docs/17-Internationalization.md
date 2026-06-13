@@ -16,8 +16,7 @@ src/
 │   │   ├── errors.json           # Generic HTTP error messages
 │   │   ├── auth.json             # Auth module messages
 │   │   ├── user.json             # User module messages
-│   │   ├── content.json          # Content module messages
-│   │   └── favorites.json        # Favorites module messages
+│   │   └── content.json          # Content module messages
 │   └── fa/
 │       └── …                     # Same file set, Persian translations
 │
@@ -87,7 +86,6 @@ in translation keys.
 | `auth.json`       | `auth.*`       | Auth module messages                          |
 | `user.json`       | `user.*`       | User module messages                          |
 | `content.json`    | `content.*`    | Content module messages                       |
-| `favorites.json`  | `favorites.*`  | Favorites module messages                     |
 
 ### Key Naming
 

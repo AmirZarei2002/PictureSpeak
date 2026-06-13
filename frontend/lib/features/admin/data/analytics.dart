@@ -14,7 +14,6 @@ abstract class AnalyticsOverview with _$AnalyticsOverview {
     required int activeCategories,
     required int totalItems,
     required int activeItems,
-    required int totalFavorites,
     required int totalProgressRows,
   }) = _AnalyticsOverview;
 
@@ -37,20 +36,6 @@ abstract class TopItem with _$TopItem {
 
   factory TopItem.fromJson(Map<String, dynamic> json) =>
       _$TopItemFromJson(json);
-}
-
-@freezed
-abstract class TopCategory with _$TopCategory {
-  const factory TopCategory({
-    required String categoryId,
-    required String categorySlug,
-    required String categoryName,
-    required String colorHex,
-    required int favoriteCount,
-  }) = _TopCategory;
-
-  factory TopCategory.fromJson(Map<String, dynamic> json) =>
-      _$TopCategoryFromJson(json);
 }
 
 @freezed

@@ -13,7 +13,6 @@ export class AdminUserDetailEntity {
     public readonly soundEffectsOn: boolean,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
-    public readonly favoritesCount: number,
     public readonly progressCount: number,
     public readonly lastSeenAt: Date | null,
   ) {}

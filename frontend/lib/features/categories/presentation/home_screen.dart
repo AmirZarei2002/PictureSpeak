@@ -90,13 +90,6 @@ class _Greeting extends ConsumerWidget {
             hasName ? l10n.greetingNamed(user!.displayName!) : l10n.greeting,
             style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
           ),
-          const SizedBox(height: 2),
-          Text(
-            l10n.pickCategory,
-            style: textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
-          ),
         ],
       ).animate().fadeIn(duration: 350.ms).slideX(begin: -0.05, end: 0),
     );

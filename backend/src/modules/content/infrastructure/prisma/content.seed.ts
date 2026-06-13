@@ -1,113 +1,145 @@
 import { PrismaClient } from '@prisma/client';
-import contentData from './content-data.json';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+} from 'node:fs';
+import { extname, join } from 'node:path';
+import { UPLOADS_ROOT } from '../../../upload/infrastructure/multer.config';
 
 interface ItemSeed {
   slug: string;
   name: string;
   sortOrder: number;
+  image: string;
+  audio: string;
 }
 
-interface CategorySeed {
-  slug: string;
-  name: string;
-  coverImagePath: string;
-  colorHex: string;
-  sortOrder: number;
-  items: ItemSeed[];
-}
-
-interface ContentData {
-  categories: Array<{
+interface CategoryManifest {
+  category: {
     slug: string;
     name: string;
     colorHex: string;
     sortOrder: number;
-    items: Array<{ slug: string; name: string }>;
-  }>;
+    coverImage: string;
+  };
+  items: ItemSeed[];
 }
 
-const data = contentData as ContentData;
+// Resolved at runtime so the same code works both for `pnpm seed` (cwd = backend/)
+// and the Docker runner (cwd = /app/, with seed-data copied there by the Dockerfile).
+const SEED_DATA_ROOT = join(process.cwd(), 'seed-data');
 
-const categoriesData: CategorySeed[] = data.categories.map((c) => ({
-  slug: c.slug,
-  name: c.name,
-  coverImagePath: `categories/${c.slug}/cover.webp`,
-  colorHex: c.colorHex,
-  sortOrder: c.sortOrder,
-  items: c.items.map((i, idx) => ({
-    slug: i.slug,
-    name: i.name,
-    sortOrder: idx + 1,
-  })),
-}));
+// Order here defines what survives the seed — any category whose slug is not
+// listed gets deleted from the DB (cascading to its items + progress rows).
+const SEEDED_CATEGORIES = ['fruits'] as const;
 
-const imagePathFor = (categorySlug: string, itemSlug: string): string =>
-  `items/${categorySlug}/${itemSlug}/image.png`;
+function readManifest(dir: string): CategoryManifest {
+  const path = join(dir, 'manifest.json');
+  return JSON.parse(readFileSync(path, 'utf-8')) as CategoryManifest;
+}
 
-const thumbnailPathFor = (categorySlug: string, itemSlug: string): string =>
-  `items/${categorySlug}/${itemSlug}/thumb.webp`;
+function resetDir(dir: string): void {
+  rmSync(dir, { recursive: true, force: true });
+  mkdirSync(dir, { recursive: true });
+}
 
-const audioPathFor = (categorySlug: string, itemSlug: string): string =>
-  `items/${categorySlug}/${itemSlug}/audio.mp3`;
+async function seedCategoryFromDir(
+  prisma: PrismaClient,
+  sourceDir: string,
+): Promise<void> {
+  const { category, items } = readManifest(sourceDir);
 
-export async function seedContent(prisma: PrismaClient): Promise<void> {
-  console.log('🌱 Seeding content (categories + items)...');
+  const coverExt = extname(category.coverImage).toLowerCase();
+  const categoryUploadDir = join(UPLOADS_ROOT, 'categories', category.slug);
+  resetDir(categoryUploadDir);
+  copyFileSync(
+    join(sourceDir, category.coverImage),
+    join(categoryUploadDir, `cover${coverExt}`),
+  );
+  const coverImagePath = `categories/${category.slug}/cover${coverExt}`;
 
-  let categoryCount = 0;
-  let itemCount = 0;
+  const dbCategory = await prisma.category.upsert({
+    where: { slug: category.slug },
+    update: {
+      name: category.name,
+      coverImagePath,
+      colorHex: category.colorHex,
+      sortOrder: category.sortOrder,
+    },
+    create: {
+      slug: category.slug,
+      name: category.name,
+      coverImagePath,
+      colorHex: category.colorHex,
+      sortOrder: category.sortOrder,
+    },
+  });
 
-  for (const cat of categoriesData) {
-    const category = await prisma.category.upsert({
-      where: { slug: cat.slug },
+  await prisma.learningItem.deleteMany({
+    where: {
+      categoryId: dbCategory.id,
+      slug: { notIn: items.map((i) => i.slug) },
+    },
+  });
+
+  for (const item of items) {
+    const imageExt = extname(item.image).toLowerCase();
+    const audioExt = extname(item.audio).toLowerCase();
+    const itemDir = join(UPLOADS_ROOT, 'items', category.slug, item.slug);
+    // Reset the destination so a changed file extension (e.g. mp3 → aac) doesn't
+    // leave a stale sibling behind that the API might still serve.
+    resetDir(itemDir);
+    copyFileSync(join(sourceDir, item.image), join(itemDir, `image${imageExt}`));
+    copyFileSync(join(sourceDir, item.audio), join(itemDir, `audio${audioExt}`));
+
+    const imagePath = `items/${category.slug}/${item.slug}/image${imageExt}`;
+    const audioPath = `items/${category.slug}/${item.slug}/audio${audioExt}`;
+
+    await prisma.learningItem.upsert({
+      where: {
+        categoryId_slug: { categoryId: dbCategory.id, slug: item.slug },
+      },
       update: {
-        name: cat.name,
-        coverImagePath: cat.coverImagePath,
-        colorHex: cat.colorHex,
-        sortOrder: cat.sortOrder,
+        name: item.name,
+        imagePath,
+        thumbnailPath: null,
+        audioPath,
+        sortOrder: item.sortOrder,
       },
       create: {
-        slug: cat.slug,
-        name: cat.name,
-        coverImagePath: cat.coverImagePath,
-        colorHex: cat.colorHex,
-        sortOrder: cat.sortOrder,
+        categoryId: dbCategory.id,
+        slug: item.slug,
+        name: item.name,
+        imagePath,
+        audioPath,
+        sortOrder: item.sortOrder,
       },
     });
-    categoryCount++;
-
-    const desiredSlugs = cat.items.map((i) => i.slug);
-    await prisma.learningItem.deleteMany({
-      where: {
-        categoryId: category.id,
-        slug: { notIn: desiredSlugs },
-      },
-    });
-
-    for (const item of cat.items) {
-      await prisma.learningItem.upsert({
-        where: {
-          categoryId_slug: { categoryId: category.id, slug: item.slug },
-        },
-        update: {
-          name: item.name,
-          imagePath: imagePathFor(cat.slug, item.slug),
-          thumbnailPath: thumbnailPathFor(cat.slug, item.slug),
-          audioPath: audioPathFor(cat.slug, item.slug),
-          sortOrder: item.sortOrder,
-        },
-        create: {
-          categoryId: category.id,
-          slug: item.slug,
-          name: item.name,
-          imagePath: imagePathFor(cat.slug, item.slug),
-          thumbnailPath: thumbnailPathFor(cat.slug, item.slug),
-          audioPath: audioPathFor(cat.slug, item.slug),
-          sortOrder: item.sortOrder,
-        },
-      });
-      itemCount++;
-    }
   }
 
-  console.log(`✅ Content seeded: ${categoryCount} categories, ${itemCount} items`);
+  console.log(`  ✓ ${category.slug}: ${items.length} items`);
+}
+
+export async function seedContent(prisma: PrismaClient): Promise<void> {
+  console.log('🌱 Seeding content from seed-data/...');
+
+  if (!existsSync(SEED_DATA_ROOT)) {
+    throw new Error(`Seed data root not found at ${SEED_DATA_ROOT}`);
+  }
+
+  for (const slug of SEEDED_CATEGORIES) {
+    await seedCategoryFromDir(prisma, join(SEED_DATA_ROOT, slug));
+  }
+
+  const removed = await prisma.category.deleteMany({
+    where: { slug: { notIn: [...SEEDED_CATEGORIES] } },
+  });
+  if (removed.count > 0) {
+    console.log(`  ✓ removed ${removed.count} stale categor${removed.count === 1 ? 'y' : 'ies'}`);
+  }
+
+  console.log('✅ Content seeded');
 }

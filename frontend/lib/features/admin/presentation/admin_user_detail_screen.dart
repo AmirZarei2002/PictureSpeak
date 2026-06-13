@@ -19,14 +19,13 @@ class AdminUserDetailScreen extends ConsumerWidget {
     final l10n = context.l10n;
 
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: Text(l10n.userTitle),
           bottom: TabBar(
             tabs: [
               Tab(text: l10n.info, icon: const Icon(Icons.person)),
-              Tab(text: l10n.favorites, icon: const Icon(Icons.favorite)),
               Tab(text: l10n.progress, icon: const Icon(Icons.show_chart)),
             ],
           ),
@@ -37,7 +36,6 @@ class AdminUserDetailScreen extends ConsumerWidget {
           data: (user) => TabBarView(
             children: [
               _InfoTab(user: user),
-              _FavoritesTab(userId: userId),
               _ProgressTab(userId: userId),
             ],
           ),
@@ -65,7 +63,6 @@ class _InfoTab extends ConsumerWidget {
         _kv(l10n.displayName, user.displayName ?? '—'),
         _kv(l10n.role, user.role == UserRole.admin ? l10n.roleAdmin : l10n.roleUser),
         _kv(l10n.guest, user.isGuest ? l10n.yes : l10n.no),
-        _kv(l10n.favorites, context.localizedNumber(user.favoritesCount)),
         _kv(l10n.progressRows, context.localizedNumber(user.progressCount)),
         _kv(l10n.lastSeen, user.lastSeenAt?.toIso8601String() ?? l10n.never),
         _kv(l10n.created, user.createdAt.toIso8601String()),
@@ -205,43 +202,6 @@ class _InfoTab extends ConsumerWidget {
         );
       }
     }
-  }
-}
-
-class _FavoritesTab extends ConsumerWidget {
-  const _FavoritesTab({required this.userId});
-
-  final String userId;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final favsAsync = ref.watch(adminUserFavoritesProvider(userId));
-    return favsAsync.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text(context.l10n.failed(e))),
-      data: (paged) {
-        if (paged.data.isEmpty) {
-          return Center(child: Text(context.l10n.noFavoritesYet));
-        }
-        return ListView.separated(
-          itemCount: paged.data.length,
-          separatorBuilder: (_, __) => const Divider(height: 1),
-          itemBuilder: (context, i) {
-            final f = paged.data[i];
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Color(
-                  int.parse(f.categoryColorHex.replaceFirst('#', '0xff')),
-                ),
-                child: const Icon(Icons.favorite, color: Colors.white),
-              ),
-              title: Text(f.itemName),
-              subtitle: Text('${f.categoryName} · ${f.favoritedAt.toIso8601String()}'),
-            );
-          },
-        );
-      },
-    );
   }
 }
 

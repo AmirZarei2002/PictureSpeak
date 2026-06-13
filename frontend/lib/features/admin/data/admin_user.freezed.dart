@@ -583,7 +583,7 @@ as int?,
 /// @nodoc
 mixin _$AdminUserListItem {
 
- String get id; String? get email; String? get displayName; UserRole get role; bool get isGuest; DateTime get createdAt; int get favoritesCount; int get progressCount; DateTime? get lastSeenAt;
+ String get id; String? get email; String? get displayName; UserRole get role; bool get isGuest; DateTime get createdAt; int get progressCount; DateTime? get lastSeenAt;
 /// Create a copy of AdminUserListItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -596,16 +596,16 @@ $AdminUserListItemCopyWith<AdminUserListItem> get copyWith => _$AdminUserListIte
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminUserListItem&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.role, role) || other.role == role)&&(identical(other.isGuest, isGuest) || other.isGuest == isGuest)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.favoritesCount, favoritesCount) || other.favoritesCount == favoritesCount)&&(identical(other.progressCount, progressCount) || other.progressCount == progressCount)&&(identical(other.lastSeenAt, lastSeenAt) || other.lastSeenAt == lastSeenAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminUserListItem&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.role, role) || other.role == role)&&(identical(other.isGuest, isGuest) || other.isGuest == isGuest)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.progressCount, progressCount) || other.progressCount == progressCount)&&(identical(other.lastSeenAt, lastSeenAt) || other.lastSeenAt == lastSeenAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,email,displayName,role,isGuest,createdAt,favoritesCount,progressCount,lastSeenAt);
+int get hashCode => Object.hash(runtimeType,id,email,displayName,role,isGuest,createdAt,progressCount,lastSeenAt);
 
 @override
 String toString() {
-  return 'AdminUserListItem(id: $id, email: $email, displayName: $displayName, role: $role, isGuest: $isGuest, createdAt: $createdAt, favoritesCount: $favoritesCount, progressCount: $progressCount, lastSeenAt: $lastSeenAt)';
+  return 'AdminUserListItem(id: $id, email: $email, displayName: $displayName, role: $role, isGuest: $isGuest, createdAt: $createdAt, progressCount: $progressCount, lastSeenAt: $lastSeenAt)';
 }
 
 
@@ -616,7 +616,7 @@ abstract mixin class $AdminUserListItemCopyWith<$Res>  {
   factory $AdminUserListItemCopyWith(AdminUserListItem value, $Res Function(AdminUserListItem) _then) = _$AdminUserListItemCopyWithImpl;
 @useResult
 $Res call({
- String id, String? email, String? displayName, UserRole role, bool isGuest, DateTime createdAt, int favoritesCount, int progressCount, DateTime? lastSeenAt
+ String id, String? email, String? displayName, UserRole role, bool isGuest, DateTime createdAt, int progressCount, DateTime? lastSeenAt
 });
 
 
@@ -633,7 +633,7 @@ class _$AdminUserListItemCopyWithImpl<$Res>
 
 /// Create a copy of AdminUserListItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? role = null,Object? isGuest = null,Object? createdAt = null,Object? favoritesCount = null,Object? progressCount = null,Object? lastSeenAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? role = null,Object? isGuest = null,Object? createdAt = null,Object? progressCount = null,Object? lastSeenAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -641,8 +641,7 @@ as String?,displayName: freezed == displayName ? _self.displayName : displayName
 as String?,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as UserRole,isGuest: null == isGuest ? _self.isGuest : isGuest // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,favoritesCount: null == favoritesCount ? _self.favoritesCount : favoritesCount // ignore: cast_nullable_to_non_nullable
-as int,progressCount: null == progressCount ? _self.progressCount : progressCount // ignore: cast_nullable_to_non_nullable
+as DateTime,progressCount: null == progressCount ? _self.progressCount : progressCount // ignore: cast_nullable_to_non_nullable
 as int,lastSeenAt: freezed == lastSeenAt ? _self.lastSeenAt : lastSeenAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
@@ -729,10 +728,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  DateTime createdAt,  int favoritesCount,  int progressCount,  DateTime? lastSeenAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  DateTime createdAt,  int progressCount,  DateTime? lastSeenAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AdminUserListItem() when $default != null:
-return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.createdAt,_that.favoritesCount,_that.progressCount,_that.lastSeenAt);case _:
+return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.createdAt,_that.progressCount,_that.lastSeenAt);case _:
   return orElse();
 
 }
@@ -750,10 +749,10 @@ return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  DateTime createdAt,  int favoritesCount,  int progressCount,  DateTime? lastSeenAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  DateTime createdAt,  int progressCount,  DateTime? lastSeenAt)  $default,) {final _that = this;
 switch (_that) {
 case _AdminUserListItem():
-return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.createdAt,_that.favoritesCount,_that.progressCount,_that.lastSeenAt);case _:
+return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.createdAt,_that.progressCount,_that.lastSeenAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -770,10 +769,10 @@ return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  DateTime createdAt,  int favoritesCount,  int progressCount,  DateTime? lastSeenAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  DateTime createdAt,  int progressCount,  DateTime? lastSeenAt)?  $default,) {final _that = this;
 switch (_that) {
 case _AdminUserListItem() when $default != null:
-return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.createdAt,_that.favoritesCount,_that.progressCount,_that.lastSeenAt);case _:
+return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.createdAt,_that.progressCount,_that.lastSeenAt);case _:
   return null;
 
 }
@@ -785,7 +784,7 @@ return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,
 @JsonSerializable()
 
 class _AdminUserListItem implements AdminUserListItem {
-  const _AdminUserListItem({required this.id, this.email, this.displayName, this.role = UserRole.user, required this.isGuest, required this.createdAt, required this.favoritesCount, required this.progressCount, this.lastSeenAt});
+  const _AdminUserListItem({required this.id, this.email, this.displayName, this.role = UserRole.user, required this.isGuest, required this.createdAt, required this.progressCount, this.lastSeenAt});
   factory _AdminUserListItem.fromJson(Map<String, dynamic> json) => _$AdminUserListItemFromJson(json);
 
 @override final  String id;
@@ -794,7 +793,6 @@ class _AdminUserListItem implements AdminUserListItem {
 @override@JsonKey() final  UserRole role;
 @override final  bool isGuest;
 @override final  DateTime createdAt;
-@override final  int favoritesCount;
 @override final  int progressCount;
 @override final  DateTime? lastSeenAt;
 
@@ -811,16 +809,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdminUserListItem&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.role, role) || other.role == role)&&(identical(other.isGuest, isGuest) || other.isGuest == isGuest)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.favoritesCount, favoritesCount) || other.favoritesCount == favoritesCount)&&(identical(other.progressCount, progressCount) || other.progressCount == progressCount)&&(identical(other.lastSeenAt, lastSeenAt) || other.lastSeenAt == lastSeenAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdminUserListItem&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.role, role) || other.role == role)&&(identical(other.isGuest, isGuest) || other.isGuest == isGuest)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.progressCount, progressCount) || other.progressCount == progressCount)&&(identical(other.lastSeenAt, lastSeenAt) || other.lastSeenAt == lastSeenAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,email,displayName,role,isGuest,createdAt,favoritesCount,progressCount,lastSeenAt);
+int get hashCode => Object.hash(runtimeType,id,email,displayName,role,isGuest,createdAt,progressCount,lastSeenAt);
 
 @override
 String toString() {
-  return 'AdminUserListItem(id: $id, email: $email, displayName: $displayName, role: $role, isGuest: $isGuest, createdAt: $createdAt, favoritesCount: $favoritesCount, progressCount: $progressCount, lastSeenAt: $lastSeenAt)';
+  return 'AdminUserListItem(id: $id, email: $email, displayName: $displayName, role: $role, isGuest: $isGuest, createdAt: $createdAt, progressCount: $progressCount, lastSeenAt: $lastSeenAt)';
 }
 
 
@@ -831,7 +829,7 @@ abstract mixin class _$AdminUserListItemCopyWith<$Res> implements $AdminUserList
   factory _$AdminUserListItemCopyWith(_AdminUserListItem value, $Res Function(_AdminUserListItem) _then) = __$AdminUserListItemCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? email, String? displayName, UserRole role, bool isGuest, DateTime createdAt, int favoritesCount, int progressCount, DateTime? lastSeenAt
+ String id, String? email, String? displayName, UserRole role, bool isGuest, DateTime createdAt, int progressCount, DateTime? lastSeenAt
 });
 
 
@@ -848,7 +846,7 @@ class __$AdminUserListItemCopyWithImpl<$Res>
 
 /// Create a copy of AdminUserListItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? role = null,Object? isGuest = null,Object? createdAt = null,Object? favoritesCount = null,Object? progressCount = null,Object? lastSeenAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? role = null,Object? isGuest = null,Object? createdAt = null,Object? progressCount = null,Object? lastSeenAt = freezed,}) {
   return _then(_AdminUserListItem(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -856,8 +854,7 @@ as String?,displayName: freezed == displayName ? _self.displayName : displayName
 as String?,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as UserRole,isGuest: null == isGuest ? _self.isGuest : isGuest // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,favoritesCount: null == favoritesCount ? _self.favoritesCount : favoritesCount // ignore: cast_nullable_to_non_nullable
-as int,progressCount: null == progressCount ? _self.progressCount : progressCount // ignore: cast_nullable_to_non_nullable
+as DateTime,progressCount: null == progressCount ? _self.progressCount : progressCount // ignore: cast_nullable_to_non_nullable
 as int,lastSeenAt: freezed == lastSeenAt ? _self.lastSeenAt : lastSeenAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
@@ -870,7 +867,7 @@ as DateTime?,
 /// @nodoc
 mixin _$AdminUserDetail {
 
- String get id; String? get email; String? get displayName; UserRole get role; bool get isGuest; String get textScale; String get themeMode; double get speechRate; bool get soundEffectsOn; DateTime get createdAt; DateTime get updatedAt; int get favoritesCount; int get progressCount; DateTime? get lastSeenAt;
+ String get id; String? get email; String? get displayName; UserRole get role; bool get isGuest; String get textScale; String get themeMode; double get speechRate; bool get soundEffectsOn; DateTime get createdAt; DateTime get updatedAt; int get progressCount; DateTime? get lastSeenAt;
 /// Create a copy of AdminUserDetail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -883,16 +880,16 @@ $AdminUserDetailCopyWith<AdminUserDetail> get copyWith => _$AdminUserDetailCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminUserDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.role, role) || other.role == role)&&(identical(other.isGuest, isGuest) || other.isGuest == isGuest)&&(identical(other.textScale, textScale) || other.textScale == textScale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.speechRate, speechRate) || other.speechRate == speechRate)&&(identical(other.soundEffectsOn, soundEffectsOn) || other.soundEffectsOn == soundEffectsOn)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.favoritesCount, favoritesCount) || other.favoritesCount == favoritesCount)&&(identical(other.progressCount, progressCount) || other.progressCount == progressCount)&&(identical(other.lastSeenAt, lastSeenAt) || other.lastSeenAt == lastSeenAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminUserDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.role, role) || other.role == role)&&(identical(other.isGuest, isGuest) || other.isGuest == isGuest)&&(identical(other.textScale, textScale) || other.textScale == textScale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.speechRate, speechRate) || other.speechRate == speechRate)&&(identical(other.soundEffectsOn, soundEffectsOn) || other.soundEffectsOn == soundEffectsOn)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.progressCount, progressCount) || other.progressCount == progressCount)&&(identical(other.lastSeenAt, lastSeenAt) || other.lastSeenAt == lastSeenAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,email,displayName,role,isGuest,textScale,themeMode,speechRate,soundEffectsOn,createdAt,updatedAt,favoritesCount,progressCount,lastSeenAt);
+int get hashCode => Object.hash(runtimeType,id,email,displayName,role,isGuest,textScale,themeMode,speechRate,soundEffectsOn,createdAt,updatedAt,progressCount,lastSeenAt);
 
 @override
 String toString() {
-  return 'AdminUserDetail(id: $id, email: $email, displayName: $displayName, role: $role, isGuest: $isGuest, textScale: $textScale, themeMode: $themeMode, speechRate: $speechRate, soundEffectsOn: $soundEffectsOn, createdAt: $createdAt, updatedAt: $updatedAt, favoritesCount: $favoritesCount, progressCount: $progressCount, lastSeenAt: $lastSeenAt)';
+  return 'AdminUserDetail(id: $id, email: $email, displayName: $displayName, role: $role, isGuest: $isGuest, textScale: $textScale, themeMode: $themeMode, speechRate: $speechRate, soundEffectsOn: $soundEffectsOn, createdAt: $createdAt, updatedAt: $updatedAt, progressCount: $progressCount, lastSeenAt: $lastSeenAt)';
 }
 
 
@@ -903,7 +900,7 @@ abstract mixin class $AdminUserDetailCopyWith<$Res>  {
   factory $AdminUserDetailCopyWith(AdminUserDetail value, $Res Function(AdminUserDetail) _then) = _$AdminUserDetailCopyWithImpl;
 @useResult
 $Res call({
- String id, String? email, String? displayName, UserRole role, bool isGuest, String textScale, String themeMode, double speechRate, bool soundEffectsOn, DateTime createdAt, DateTime updatedAt, int favoritesCount, int progressCount, DateTime? lastSeenAt
+ String id, String? email, String? displayName, UserRole role, bool isGuest, String textScale, String themeMode, double speechRate, bool soundEffectsOn, DateTime createdAt, DateTime updatedAt, int progressCount, DateTime? lastSeenAt
 });
 
 
@@ -920,7 +917,7 @@ class _$AdminUserDetailCopyWithImpl<$Res>
 
 /// Create a copy of AdminUserDetail
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? role = null,Object? isGuest = null,Object? textScale = null,Object? themeMode = null,Object? speechRate = null,Object? soundEffectsOn = null,Object? createdAt = null,Object? updatedAt = null,Object? favoritesCount = null,Object? progressCount = null,Object? lastSeenAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? role = null,Object? isGuest = null,Object? textScale = null,Object? themeMode = null,Object? speechRate = null,Object? soundEffectsOn = null,Object? createdAt = null,Object? updatedAt = null,Object? progressCount = null,Object? lastSeenAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -933,8 +930,7 @@ as String,speechRate: null == speechRate ? _self.speechRate : speechRate // igno
 as double,soundEffectsOn: null == soundEffectsOn ? _self.soundEffectsOn : soundEffectsOn // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,favoritesCount: null == favoritesCount ? _self.favoritesCount : favoritesCount // ignore: cast_nullable_to_non_nullable
-as int,progressCount: null == progressCount ? _self.progressCount : progressCount // ignore: cast_nullable_to_non_nullable
+as DateTime,progressCount: null == progressCount ? _self.progressCount : progressCount // ignore: cast_nullable_to_non_nullable
 as int,lastSeenAt: freezed == lastSeenAt ? _self.lastSeenAt : lastSeenAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
@@ -1021,10 +1017,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  String textScale,  String themeMode,  double speechRate,  bool soundEffectsOn,  DateTime createdAt,  DateTime updatedAt,  int favoritesCount,  int progressCount,  DateTime? lastSeenAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  String textScale,  String themeMode,  double speechRate,  bool soundEffectsOn,  DateTime createdAt,  DateTime updatedAt,  int progressCount,  DateTime? lastSeenAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AdminUserDetail() when $default != null:
-return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.textScale,_that.themeMode,_that.speechRate,_that.soundEffectsOn,_that.createdAt,_that.updatedAt,_that.favoritesCount,_that.progressCount,_that.lastSeenAt);case _:
+return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.textScale,_that.themeMode,_that.speechRate,_that.soundEffectsOn,_that.createdAt,_that.updatedAt,_that.progressCount,_that.lastSeenAt);case _:
   return orElse();
 
 }
@@ -1042,10 +1038,10 @@ return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  String textScale,  String themeMode,  double speechRate,  bool soundEffectsOn,  DateTime createdAt,  DateTime updatedAt,  int favoritesCount,  int progressCount,  DateTime? lastSeenAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  String textScale,  String themeMode,  double speechRate,  bool soundEffectsOn,  DateTime createdAt,  DateTime updatedAt,  int progressCount,  DateTime? lastSeenAt)  $default,) {final _that = this;
 switch (_that) {
 case _AdminUserDetail():
-return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.textScale,_that.themeMode,_that.speechRate,_that.soundEffectsOn,_that.createdAt,_that.updatedAt,_that.favoritesCount,_that.progressCount,_that.lastSeenAt);case _:
+return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.textScale,_that.themeMode,_that.speechRate,_that.soundEffectsOn,_that.createdAt,_that.updatedAt,_that.progressCount,_that.lastSeenAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1062,10 +1058,10 @@ return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  String textScale,  String themeMode,  double speechRate,  bool soundEffectsOn,  DateTime createdAt,  DateTime updatedAt,  int favoritesCount,  int progressCount,  DateTime? lastSeenAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? email,  String? displayName,  UserRole role,  bool isGuest,  String textScale,  String themeMode,  double speechRate,  bool soundEffectsOn,  DateTime createdAt,  DateTime updatedAt,  int progressCount,  DateTime? lastSeenAt)?  $default,) {final _that = this;
 switch (_that) {
 case _AdminUserDetail() when $default != null:
-return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.textScale,_that.themeMode,_that.speechRate,_that.soundEffectsOn,_that.createdAt,_that.updatedAt,_that.favoritesCount,_that.progressCount,_that.lastSeenAt);case _:
+return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,_that.textScale,_that.themeMode,_that.speechRate,_that.soundEffectsOn,_that.createdAt,_that.updatedAt,_that.progressCount,_that.lastSeenAt);case _:
   return null;
 
 }
@@ -1077,7 +1073,7 @@ return $default(_that.id,_that.email,_that.displayName,_that.role,_that.isGuest,
 @JsonSerializable()
 
 class _AdminUserDetail implements AdminUserDetail {
-  const _AdminUserDetail({required this.id, this.email, this.displayName, this.role = UserRole.user, required this.isGuest, required this.textScale, required this.themeMode, required this.speechRate, required this.soundEffectsOn, required this.createdAt, required this.updatedAt, required this.favoritesCount, required this.progressCount, this.lastSeenAt});
+  const _AdminUserDetail({required this.id, this.email, this.displayName, this.role = UserRole.user, required this.isGuest, required this.textScale, required this.themeMode, required this.speechRate, required this.soundEffectsOn, required this.createdAt, required this.updatedAt, required this.progressCount, this.lastSeenAt});
   factory _AdminUserDetail.fromJson(Map<String, dynamic> json) => _$AdminUserDetailFromJson(json);
 
 @override final  String id;
@@ -1091,7 +1087,6 @@ class _AdminUserDetail implements AdminUserDetail {
 @override final  bool soundEffectsOn;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
-@override final  int favoritesCount;
 @override final  int progressCount;
 @override final  DateTime? lastSeenAt;
 
@@ -1108,16 +1103,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdminUserDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.role, role) || other.role == role)&&(identical(other.isGuest, isGuest) || other.isGuest == isGuest)&&(identical(other.textScale, textScale) || other.textScale == textScale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.speechRate, speechRate) || other.speechRate == speechRate)&&(identical(other.soundEffectsOn, soundEffectsOn) || other.soundEffectsOn == soundEffectsOn)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.favoritesCount, favoritesCount) || other.favoritesCount == favoritesCount)&&(identical(other.progressCount, progressCount) || other.progressCount == progressCount)&&(identical(other.lastSeenAt, lastSeenAt) || other.lastSeenAt == lastSeenAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdminUserDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.role, role) || other.role == role)&&(identical(other.isGuest, isGuest) || other.isGuest == isGuest)&&(identical(other.textScale, textScale) || other.textScale == textScale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.speechRate, speechRate) || other.speechRate == speechRate)&&(identical(other.soundEffectsOn, soundEffectsOn) || other.soundEffectsOn == soundEffectsOn)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.progressCount, progressCount) || other.progressCount == progressCount)&&(identical(other.lastSeenAt, lastSeenAt) || other.lastSeenAt == lastSeenAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,email,displayName,role,isGuest,textScale,themeMode,speechRate,soundEffectsOn,createdAt,updatedAt,favoritesCount,progressCount,lastSeenAt);
+int get hashCode => Object.hash(runtimeType,id,email,displayName,role,isGuest,textScale,themeMode,speechRate,soundEffectsOn,createdAt,updatedAt,progressCount,lastSeenAt);
 
 @override
 String toString() {
-  return 'AdminUserDetail(id: $id, email: $email, displayName: $displayName, role: $role, isGuest: $isGuest, textScale: $textScale, themeMode: $themeMode, speechRate: $speechRate, soundEffectsOn: $soundEffectsOn, createdAt: $createdAt, updatedAt: $updatedAt, favoritesCount: $favoritesCount, progressCount: $progressCount, lastSeenAt: $lastSeenAt)';
+  return 'AdminUserDetail(id: $id, email: $email, displayName: $displayName, role: $role, isGuest: $isGuest, textScale: $textScale, themeMode: $themeMode, speechRate: $speechRate, soundEffectsOn: $soundEffectsOn, createdAt: $createdAt, updatedAt: $updatedAt, progressCount: $progressCount, lastSeenAt: $lastSeenAt)';
 }
 
 
@@ -1128,7 +1123,7 @@ abstract mixin class _$AdminUserDetailCopyWith<$Res> implements $AdminUserDetail
   factory _$AdminUserDetailCopyWith(_AdminUserDetail value, $Res Function(_AdminUserDetail) _then) = __$AdminUserDetailCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? email, String? displayName, UserRole role, bool isGuest, String textScale, String themeMode, double speechRate, bool soundEffectsOn, DateTime createdAt, DateTime updatedAt, int favoritesCount, int progressCount, DateTime? lastSeenAt
+ String id, String? email, String? displayName, UserRole role, bool isGuest, String textScale, String themeMode, double speechRate, bool soundEffectsOn, DateTime createdAt, DateTime updatedAt, int progressCount, DateTime? lastSeenAt
 });
 
 
@@ -1145,7 +1140,7 @@ class __$AdminUserDetailCopyWithImpl<$Res>
 
 /// Create a copy of AdminUserDetail
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? role = null,Object? isGuest = null,Object? textScale = null,Object? themeMode = null,Object? speechRate = null,Object? soundEffectsOn = null,Object? createdAt = null,Object? updatedAt = null,Object? favoritesCount = null,Object? progressCount = null,Object? lastSeenAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? role = null,Object? isGuest = null,Object? textScale = null,Object? themeMode = null,Object? speechRate = null,Object? soundEffectsOn = null,Object? createdAt = null,Object? updatedAt = null,Object? progressCount = null,Object? lastSeenAt = freezed,}) {
   return _then(_AdminUserDetail(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -1158,8 +1153,7 @@ as String,speechRate: null == speechRate ? _self.speechRate : speechRate // igno
 as double,soundEffectsOn: null == soundEffectsOn ? _self.soundEffectsOn : soundEffectsOn // ignore: cast_nullable_to_non_nullable
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,favoritesCount: null == favoritesCount ? _self.favoritesCount : favoritesCount // ignore: cast_nullable_to_non_nullable
-as int,progressCount: null == progressCount ? _self.progressCount : progressCount // ignore: cast_nullable_to_non_nullable
+as DateTime,progressCount: null == progressCount ? _self.progressCount : progressCount // ignore: cast_nullable_to_non_nullable
 as int,lastSeenAt: freezed == lastSeenAt ? _self.lastSeenAt : lastSeenAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));

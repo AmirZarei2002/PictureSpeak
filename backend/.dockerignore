@@ -85,6 +85,7 @@ docker-compose.*.yml
 .dockerignore
 
 # --- Local-only artifacts ---
-# (uploads/ is shipped — seed assets live there; remove this comment and
-#  re-add `uploads/` once you switch to a Railway Volume / S3 for media.)
+# uploads/ is NOT shipped — the seeder rebuilds it from seed-data/ at container
+# start. Keeping local dev's uploads/ out of the build context shrinks it.
+uploads/
 .lock-wscript

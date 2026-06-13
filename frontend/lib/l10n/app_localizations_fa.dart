@@ -72,9 +72,6 @@ class AppLocalizationsFa extends AppLocalizations {
   String get home => 'خانه';
 
   @override
-  String get favorites => 'علاقه‌مندی‌ها';
-
-  @override
   String get progress => 'پیشرفت';
 
   @override
@@ -208,30 +205,6 @@ class AppLocalizationsFa extends AppLocalizations {
 
     return '$currentString از $totalString';
   }
-
-  @override
-  String get favoritesLoadError => 'بارگذاری علاقه‌مندی‌ها ممکن نشد.';
-
-  @override
-  String get practiceAll => 'تمرین همه';
-
-  @override
-  String get favoritesEmpty => 'روی ♥ هر واژه بزنید تا اینجا ذخیره شود.';
-
-  @override
-  String get removeFromFavorites => 'حذف از علاقه‌مندی‌ها';
-
-  @override
-  String get addToFavorites => 'افزودن به علاقه‌مندی‌ها';
-
-  @override
-  String get removedFromFavorites => 'از علاقه‌مندی‌ها حذف شد';
-
-  @override
-  String get undo => 'بازگردانی';
-
-  @override
-  String get favoriteUpdateError => 'به‌روزرسانی علاقه‌مندی‌ها ممکن نشد';
 
   @override
   String get progressLoadError => 'بارگذاری پیشرفت ممکن نشد.';
@@ -422,27 +395,6 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
-  String get topCategoriesByFavorites =>
-      'دسته‌بندی‌های برتر بر اساس علاقه‌مندی';
-
-  @override
-  String topCategoriesFailed(Object error) {
-    return 'بارگذاری دسته‌بندی‌های برتر ناموفق بود: $error';
-  }
-
-  @override
-  String get noFavoritesYet => 'هنوز علاقه‌مندی‌ای نیست.';
-
-  @override
-  String favoriteStars(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return '$countString ★';
-  }
-
-  @override
   String get manage => 'مدیریت';
 
   @override
@@ -474,15 +426,6 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get guestTag => 'مهمان';
-
-  @override
-  String favShort(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return '$countString علاقه‌مندی';
-  }
 
   @override
   String progShort(int count) {
@@ -587,7 +530,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get deleteUserBody =>
-      'این کار حساب کاربر و همه علاقه‌مندی‌ها و پیشرفت او را برای همیشه حذف می‌کند. این عمل قابل بازگشت نیست.';
+      'این کار حساب کاربر و همه پیشرفت او را برای همیشه حذف می‌کند. این عمل قابل بازگشت نیست.';
 
   @override
   String deleteFailed(Object error) {
@@ -720,7 +663,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get itemDeletePermanent =>
-      'این کار مورد را برای همیشه حذف می‌کند و شامل همه کسانی می‌شود که آن را به علاقه‌مندی افزوده یا دیده‌اند. این عمل قابل بازگشت نیست.';
+      'این کار مورد را برای همیشه حذف می‌کند و شامل همه کسانی می‌شود که آن را دیده‌اند. این عمل قابل بازگشت نیست.';
 
   @override
   String get editItem => 'ویرایش مورد';

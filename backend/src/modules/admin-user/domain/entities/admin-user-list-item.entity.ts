@@ -8,7 +8,6 @@ export class AdminUserListItemEntity {
     public readonly role: Role,
     public readonly isGuest: boolean,
     public readonly createdAt: Date,
-    public readonly favoritesCount: number,
     public readonly progressCount: number,
     public readonly lastSeenAt: Date | null,
   ) {}

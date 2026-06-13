@@ -7,7 +7,6 @@ import 'package:frontend/features/admin/data/admin_item.dart';
 import 'package:frontend/features/admin/data/admin_user.dart';
 import 'package:frontend/features/admin/data/analytics.dart';
 import 'package:frontend/features/auth/data/user.dart';
-import 'package:frontend/features/favorites/data/favorite_item.dart';
 
 enum AdminUploadKind {
   image('image'),
@@ -68,21 +67,6 @@ class AdminRepository {
   }
 
   Future<void> deleteUser(String id) => _dio.delete('/admin/users/$id');
-
-  Future<PaginatedList<FavoriteItem>> getUserFavorites(
-    String id, {
-    int page = 1,
-    int size = 20,
-  }) async {
-    final response = await _dio.get(
-      '/admin/users/$id/favorites',
-      queryParameters: {'page': page, 'size': size},
-    );
-    return PaginatedList.fromJson(
-      response.data as Map<String, dynamic>,
-      (json) => FavoriteItem.fromJson(json! as Map<String, dynamic>),
-    );
-  }
 
   Future<PaginatedList<UserProgressRow>> getUserProgress(
     String id, {
@@ -253,17 +237,6 @@ class AdminRepository {
     final list = response.data as List<dynamic>;
     return list
         .map((json) => TopItem.fromJson(json as Map<String, dynamic>))
-        .toList();
-  }
-
-  Future<List<TopCategory>> getTopCategories({int limit = 10}) async {
-    final response = await _dio.get(
-      '/admin/analytics/top-categories',
-      queryParameters: {'limit': limit},
-    );
-    final list = response.data as List<dynamic>;
-    return list
-        .map((json) => TopCategory.fromJson(json as Map<String, dynamic>))
         .toList();
   }
 

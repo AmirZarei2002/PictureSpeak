@@ -38,7 +38,6 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  favorites Favorite[]
   progress  Progress[]
 }
 
@@ -66,22 +65,10 @@ model LearningItem {
   isActive      Boolean @default(true)
 
   category  Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  favorites Favorite[]
   progress  Progress[]
 
   @@unique([categoryId, slug])
   @@index([categoryId, sortOrder])
-}
-
-model Favorite {
-  userId    String
-  itemId    String
-  createdAt DateTime @default(now())
-
-  user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  item LearningItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
-
-  @@id([userId, itemId])
 }
 
 model Progress {

@@ -43,8 +43,9 @@ lerna-debug.log*
 # temp directory
 .temp
 .tmp
-# /uploads is tracked so seed media (~47MB) ships with the Docker build context.
-# When you switch to a Railway Volume or S3 for media, re-add `/uploads` here.
+# Runtime media — seeder copies seed-data/ into uploads/ at boot, and admin
+# uploads land here. Source of truth for seeded media is /seed-data, which IS tracked.
+/uploads
 
 # Runtime data
 pids

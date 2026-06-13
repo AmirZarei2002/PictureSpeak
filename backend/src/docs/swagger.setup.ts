@@ -24,9 +24,7 @@ import {
   AnalyticsOverviewResponse,
   DauPointResponse,
   PaginatedAdminUsersResponse,
-  PaginatedFavoritesResponse,
   PaginatedUserProgressResponse,
-  TopCategoryResponse,
   TopItemResponse,
   UserProgressRowResponse,
 } from './schemas/admin-response.schema';
@@ -44,7 +42,6 @@ import {
   ValidationErrorResponse,
   ValidationFieldError,
 } from './schemas/error-response.schema';
-import { FavoriteItemResponse } from './schemas/favorites-response.schema';
 import { PaginationMetaResponse } from './schemas/pagination-response.schema';
 import {
   CategoryProgressResponse,
@@ -160,16 +157,12 @@ export function setupSwagger(app: INestApplication, port: string | number) {
       'Browse vocabulary categories and the learning items they contain. Public, cached.',
     )
     .addTag(
-      TAGS.Favorites,
-      'Manage the authenticated user’s favorited learning items.',
-    )
-    .addTag(
       TAGS.Progress,
       'Record learning interactions (views, listens) and read aggregated progress.',
     )
     .addTag(
       TAGS.AdminUsers,
-      'Admin-only. List, drill into, update role, and delete users. Includes per-user favorites and progress.',
+      'Admin-only. List, drill into, update role, and delete users. Includes per-user progress.',
     )
     .addTag(
       TAGS.AdminCategories,
@@ -177,11 +170,11 @@ export function setupSwagger(app: INestApplication, port: string | number) {
     )
     .addTag(
       TAGS.AdminItems,
-      'Admin-only. CRUD for learning items inside a category. Deletes cascade to favorites and progress.',
+      'Admin-only. CRUD for learning items inside a category. Deletes cascade to progress.',
     )
     .addTag(
       TAGS.AdminAnalytics,
-      'Admin-only. Platform totals, top items and categories, DAU/WAU/MAU.',
+      'Admin-only. Platform totals, top items, DAU/WAU/MAU.',
     );
 
   const document = SwaggerModule.createDocument(app, builder.build(), {
@@ -198,21 +191,18 @@ export function setupSwagger(app: INestApplication, port: string | number) {
       AuthResponse,
       CategoryResponse,
       LearningItemResponse,
-      FavoriteItemResponse,
       CategoryProgressResponse,
       ProgressSummaryResponse,
       PaginationMetaResponse,
       AdminUserListItemResponse,
       AdminUserDetailResponse,
       PaginatedAdminUsersResponse,
-      PaginatedFavoritesResponse,
       PaginatedUserProgressResponse,
       UserProgressRowResponse,
       AdminCategoryResponse,
       AdminLearningItemResponse,
       AnalyticsOverviewResponse,
       TopItemResponse,
-      TopCategoryResponse,
       DauPointResponse,
       ActiveUsersResponse,
     ],

@@ -126,13 +126,17 @@ COPY --from=builder --chown=nestjs:nodejs /app/prisma            ./prisma
 COPY --from=builder --chown=nestjs:nodejs /app/prisma.config.ts  ./prisma.config.ts
 COPY --from=builder --chown=nestjs:nodejs /app/package.json      ./package.json
 
-# Ship the seeded media assets (category covers, item images, audio) so the
-# `/static/...` endpoint can serve them. Comes from the build context, not
-# the builder stage, because nest build doesn't touch `uploads/`.
+# Ship the source media for the seeder (PNGs + AACs + manifest.json per
+# category). The seed step copies these into ./uploads/ at container start,
+# so the build context no longer needs a pre-populated uploads/ tree.
+COPY --chown=nestjs:nodejs seed-data ./seed-data
+
+# Create an empty uploads/ owned by the app user. The seeder writes seeded
+# media into it on every boot; admin uploads land here at runtime.
 # NOTE: this filesystem is ephemeral on Railway — admin-uploaded files added
 # after deploy are lost on the next redeploy until you attach a Railway
 # Volume at /app/uploads (or move media to S3 / R2).
-COPY --chown=nestjs:nodejs uploads ./uploads
+RUN mkdir -p uploads && chown -R nestjs:nodejs uploads
 RUN mkdir -p logs && chown -R nestjs:nodejs logs
 
 USER nestjs

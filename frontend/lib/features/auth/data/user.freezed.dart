@@ -15,8 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$User {
 
- String get id; String? get email;// null for guest accounts
- bool get isGuest; String? get displayName; UserRole get role;
+ String get id; String? get email; bool get isGuest; String? get displayName; UserRole get role;
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -219,7 +218,6 @@ class _User extends User {
 
 @override final  String id;
 @override final  String? email;
-// null for guest accounts
 @override final  bool isGuest;
 @override final  String? displayName;
 @override@JsonKey() final  UserRole role;

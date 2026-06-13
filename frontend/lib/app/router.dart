@@ -18,7 +18,6 @@ import 'package:frontend/features/auth/presentation/welcome_screen.dart';
 import 'package:frontend/features/categories/data/category.dart';
 import 'package:frontend/features/categories/presentation/category_detail_screen.dart';
 import 'package:frontend/features/categories/presentation/home_screen.dart';
-import 'package:frontend/features/favorites/presentation/favorites_screen.dart';
 import 'package:frontend/features/learning/presentation/learning_card_screen.dart';
 import 'package:frontend/features/progress/presentation/progress_screen.dart';
 import 'package:frontend/features/settings/presentation/settings_screen.dart';
@@ -131,14 +130,6 @@ final GoRouter appRouter = GoRouter(
                   },
                 ),
               ],
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/favorites',
-              builder: (context, state) => const FavoritesScreen(),
             ),
           ],
         ),

@@ -43,12 +43,11 @@ All under `/api/v1/admin/...`, all admin-only.
 
 ### Users — `admin-user` module
 - `GET /admin/users` — paginated; filters: `search`, `role`, `isGuest`.
-- `GET /admin/users/:id` — full record + favorites/progress counts.
+- `GET /admin/users/:id` — full record + progress count.
 - `PATCH /admin/users/:id` — patch `role`, `displayName`. Blocks demoting the
   last admin (409).
-- `DELETE /admin/users/:id` — hard delete; cascades favorites + progress.
+- `DELETE /admin/users/:id` — hard delete; cascades progress.
   Blocks self-delete (400) and last-admin deletion (409).
-- `GET /admin/users/:id/favorites` — paginated.
 - `GET /admin/users/:id/progress` — paginated, per-item rows.
 
 ### Content — extends the existing `content` module
@@ -60,15 +59,13 @@ All under `/api/v1/admin/...`, all admin-only.
 - `POST /admin/categories/:categoryId/items` — slug must be unique within the
   category.
 - `PATCH /admin/items/:id` · `DELETE /admin/items/:id` — item CRUD; delete
-  cascades to favorites and progress.
+  cascades to progress.
 
 ### Analytics — `admin-analytics` module
 - `GET /admin/analytics/overview` — platform totals (users, content,
   engagement).
 - `GET /admin/analytics/top-items?limit&days` — Prisma `groupBy` aggregation
   over `Progress.viewCount`.
-- `GET /admin/analytics/top-categories?limit` — favorite counts per category
-  (raw SQL join Favorite→LearningItem).
 - `GET /admin/analytics/active-users?days` — DAU/WAU/MAU + per-day series
   (raw SQL `DATE_TRUNC('day', "lastSeenAt")`).
 

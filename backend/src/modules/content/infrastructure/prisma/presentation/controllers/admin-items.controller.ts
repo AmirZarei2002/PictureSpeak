@@ -194,7 +194,7 @@ export class AdminItemsController {
   @Delete('items/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Delete an item (cascades favorites and progress)',
+    summary: 'Delete an item (cascades progress)',
   })
   @ApiParam(ITEM_ID_PARAM)
   @ApiNoContentResponse({ description: 'Item deleted.' })

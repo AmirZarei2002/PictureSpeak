@@ -17,7 +17,6 @@ async function checkDatabaseHealth() {
       'User',
       'Category',
       'LearningItem',
-      'Favorite',
       'Progress',
     ];
 
@@ -36,7 +35,6 @@ async function checkDatabaseHealth() {
     await prisma.user.findFirst();
     await prisma.category.findFirst();
     await prisma.learningItem.findFirst();
-    await prisma.favorite.findFirst();
     await prisma.progress.findFirst();
 
     console.log('✅ All tables are accessible');

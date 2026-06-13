@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/core/widgets/media_image.dart';
 import 'package:frontend/core/widgets/pressable.dart';
 import 'package:frontend/features/categories/data/learning_item.dart';
-import 'package:frontend/features/favorites/presentation/favorite_button.dart';
 
 class ItemTile extends StatelessWidget {
   const ItemTile({
@@ -28,23 +27,13 @@ class ItemTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Hero(
-                    tag: 'item-image-${item.id}',
-                    child: MediaImage(
-                      path: item.thumbnailPath ?? item.imagePath,
-                      fallbackColor: accent,
-                      fallbackLabel: item.name,
-                    ),
-                  ),
-                  Positioned(
-                    top: 4,
-                    right: 4,
-                    child: FavoriteBadge(itemId: item.id),
-                  ),
-                ],
+              child: Hero(
+                tag: 'item-image-${item.id}',
+                child: MediaImage(
+                  path: item.thumbnailPath ?? item.imagePath,
+                  fallbackColor: accent,
+                  fallbackLabel: item.name,
+                ),
               ),
             ),
             Padding(

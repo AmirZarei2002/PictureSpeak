@@ -148,7 +148,6 @@ class _UserTile extends StatelessWidget {
     final subtitle = [
       if (user.email != null) user.email!,
       if (user.isGuest) l10n.guestTag,
-      l10n.favShort(user.favoritesCount),
       l10n.progShort(user.progressCount),
     ].join(' · ');
     return ListTile(

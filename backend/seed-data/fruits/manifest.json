@@ -1,0 +1,29 @@
+{
+  "category": {
+    "slug": "fruits",
+    "name": "میوه‌ها",
+    "colorHex": "#F2B5A3",
+    "sortOrder": 1,
+    "coverImage": "1-سیب.png"
+  },
+  "items": [
+    { "slug": "apple",       "name": "سیب",         "sortOrder": 1,  "image": "1-سیب.png",        "audio": "سیب.aac" },
+    { "slug": "orange",      "name": "پرتقال",      "sortOrder": 2,  "image": "2-پرتقال.png",     "audio": "پرتغال.aac" },
+    { "slug": "banana",      "name": "موز",         "sortOrder": 3,  "image": "3-موز.png",        "audio": "موز.aac" },
+    { "slug": "tangerine",   "name": "نارنگی",      "sortOrder": 4,  "image": "4-نارنگی.png",     "audio": "نارنگی.aac" },
+    { "slug": "pomegranate", "name": "انار",        "sortOrder": 5,  "image": "5-انار.png",       "audio": "انار.aac" },
+    { "slug": "peach",       "name": "هلو",         "sortOrder": 6,  "image": "6-هلو.png",        "audio": "هلو.aac" },
+    { "slug": "kiwi",        "name": "کیوی",        "sortOrder": 7,  "image": "7-کیوی.png",       "audio": "کیوی.aac" },
+    { "slug": "cantaloupe",  "name": "طالبی",       "sortOrder": 8,  "image": "8-طالبی.png",      "audio": "طالبی.aac" },
+    { "slug": "watermelon",  "name": "هندوانه",     "sortOrder": 9,  "image": "9-هندوانه.png",    "audio": "هندوانه.aac" },
+    { "slug": "melon",       "name": "خربزه",       "sortOrder": 10, "image": "10-خربزه.png",     "audio": "خربزه.aac" },
+    { "slug": "grape",       "name": "انگور",       "sortOrder": 11, "image": "11-انگور.png",     "audio": "انگور.aac" },
+    { "slug": "apricot",     "name": "زردآلو",      "sortOrder": 12, "image": "12-زردآلو.png",    "audio": "زردآلو.aac" },
+    { "slug": "pear",        "name": "گلابی",       "sortOrder": 13, "image": "13-گلابی.png",     "audio": "گلابی.aac" },
+    { "slug": "strawberry",  "name": "توت فرنگی",  "sortOrder": 14, "image": "14-توت فرنگی.png", "audio": "توت_فرنگی.aac" },
+    { "slug": "cherry",      "name": "گیلاس",       "sortOrder": 15, "image": "15-گیلاس.png",     "audio": "گیلاس.aac" },
+    { "slug": "sour-cherry", "name": "آلبالو",      "sortOrder": 16, "image": "16-آلبالو.png",    "audio": "آلبالو.aac" },
+    { "slug": "pineapple",   "name": "آناناس",      "sortOrder": 17, "image": "19-آناناس.png",    "audio": "آناناس.aac" },
+    { "slug": "fig",         "name": "انجیر",       "sortOrder": 18, "image": "20-انجیر.png",     "audio": "انجیر.aac" }
+  ]
+}

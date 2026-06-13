@@ -51,7 +51,6 @@ _AdminUserListItem _$AdminUserListItemFromJson(Map<String, dynamic> json) =>
           $enumDecodeNullable(_$UserRoleEnumMap, json['role']) ?? UserRole.user,
       isGuest: json['isGuest'] as bool,
       createdAt: DateTime.parse(json['createdAt'] as String),
-      favoritesCount: (json['favoritesCount'] as num).toInt(),
       progressCount: (json['progressCount'] as num).toInt(),
       lastSeenAt: json['lastSeenAt'] == null
           ? null
@@ -66,7 +65,6 @@ Map<String, dynamic> _$AdminUserListItemToJson(_AdminUserListItem instance) =>
       'role': _$UserRoleEnumMap[instance.role]!,
       'isGuest': instance.isGuest,
       'createdAt': instance.createdAt.toIso8601String(),
-      'favoritesCount': instance.favoritesCount,
       'progressCount': instance.progressCount,
       'lastSeenAt': instance.lastSeenAt?.toIso8601String(),
     };
@@ -87,7 +85,6 @@ _AdminUserDetail _$AdminUserDetailFromJson(Map<String, dynamic> json) =>
       soundEffectsOn: json['soundEffectsOn'] as bool,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      favoritesCount: (json['favoritesCount'] as num).toInt(),
       progressCount: (json['progressCount'] as num).toInt(),
       lastSeenAt: json['lastSeenAt'] == null
           ? null
@@ -107,7 +104,6 @@ Map<String, dynamic> _$AdminUserDetailToJson(_AdminUserDetail instance) =>
       'soundEffectsOn': instance.soundEffectsOn,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
-      'favoritesCount': instance.favoritesCount,
       'progressCount': instance.progressCount,
       'lastSeenAt': instance.lastSeenAt?.toIso8601String(),
     };

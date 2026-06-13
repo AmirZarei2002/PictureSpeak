@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:frontend/core/audio/audio_service.dart';
 import 'package:frontend/core/widgets/media_image.dart';
 import 'package:frontend/features/categories/data/learning_item.dart';
-import 'package:frontend/features/favorites/presentation/favorite_button.dart';
 import 'package:frontend/features/progress/application/progress_providers.dart';
 import 'package:frontend/l10n/l10n_ext.dart';
 
@@ -129,14 +128,7 @@ class _Card extends ConsumerWidget {
               .fadeIn(duration: 350.ms)
               .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FavoriteButton(itemId: item.id, size: 36),
-              _SpeakerButton(isPlaying: isPlaying, onTap: playWord),
-              const SizedBox(width: 48), 
-            ],
-          ),
+          _SpeakerButton(isPlaying: isPlaying, onTap: playWord),
         ],
       ),
     );

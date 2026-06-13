@@ -140,7 +140,7 @@ export class AuthController {
   @ApiOperation({
     summary: 'Create an anonymous guest session',
     description:
-      'Provisions an anonymous user with no credentials and returns a JWT. Guest accounts can favorite items and record progress; calling `PATCH /auth/upgrade` later attaches an email and password without losing data.',
+      'Provisions an anonymous user with no credentials and returns a JWT. Guest accounts can record progress; calling `PATCH /auth/upgrade` later attaches an email and password without losing data.',
   })
   @ApiCreatedResponse({
     description: 'Guest account created.',
@@ -157,7 +157,7 @@ export class AuthController {
   @ApiOperation({
     summary: 'Upgrade the current guest to a full account',
     description:
-      'Requires a valid guest JWT. Attaches an email and password to the existing account so the user keeps their favorites and progress history. Returns a fresh JWT reflecting the upgraded identity. Fails with `409 Conflict` if the email is already taken or the account is no longer a guest.',
+      'Requires a valid guest JWT. Attaches an email and password to the existing account so the user keeps their progress history. Returns a fresh JWT reflecting the upgraded identity. Fails with `409 Conflict` if the email is already taken or the account is no longer a guest.',
   })
   @ApiBody({
     type: UpgradeGuestDto,

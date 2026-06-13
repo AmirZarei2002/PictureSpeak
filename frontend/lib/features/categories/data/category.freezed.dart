@@ -15,9 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Category {
 
- String get id; String get slug; String get name; String get coverImagePath;// relative, e.g. categories/animals/cover.webp
- String get colorHex;// accent + placeholder color, e.g. "#A3C4A8"
- int get itemCount;
+ String get id; String get slug; String get name; String get coverImagePath; String get colorHex; int get itemCount;
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -223,9 +221,7 @@ class _Category implements Category {
 @override final  String slug;
 @override final  String name;
 @override final  String coverImagePath;
-// relative, e.g. categories/animals/cover.webp
 @override final  String colorHex;
-// accent + placeholder color, e.g. "#A3C4A8"
 @override final  int itemCount;
 
 /// Create a copy of Category

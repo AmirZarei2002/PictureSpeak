@@ -9,7 +9,6 @@ export const TAGS = {
   Authentication: 'Authentication',
   Account: 'Account',
   Categories: 'Categories',
-  Favorites: 'Favorites',
   Progress: 'Progress',
   AdminUsers: 'Admin · Users',
   AdminCategories: 'Admin · Categories',
@@ -44,7 +43,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 Tokens are obtained via \`POST /auth/login\`, \`POST /auth/register\`, or \`POST /auth/guest\`.
 Guest tokens carry an anonymous, app-generated identity and can be **upgraded** to a
-full account via \`PATCH /auth/upgrade\` without losing favorites or progress.
+full account via \`PATCH /auth/upgrade\` without losing progress.
 
 Token lifetime defaults to **30 days** (configurable via \`JWT_EXPIRES_IN\`). There is
 currently no refresh-token rotation — clients should re-authenticate when they receive

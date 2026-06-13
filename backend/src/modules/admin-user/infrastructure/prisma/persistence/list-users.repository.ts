@@ -43,7 +43,7 @@ export class ListUsersRepository implements IListUsersRepository {
           role: true,
           isGuest: true,
           createdAt: true,
-          _count: { select: { favorites: true, progress: true } },
+          _count: { select: { progress: true } },
           progress: {
             select: { lastSeenAt: true },
             orderBy: { lastSeenAt: 'desc' },
@@ -62,7 +62,6 @@ export class ListUsersRepository implements IListUsersRepository {
           r.role,
           r.isGuest,
           r.createdAt,
-          r._count.favorites,
           r._count.progress,
           r.progress[0]?.lastSeenAt ?? null,
         ),

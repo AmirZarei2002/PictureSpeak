@@ -16,7 +16,6 @@ _AnalyticsOverview _$AnalyticsOverviewFromJson(Map<String, dynamic> json) =>
       activeCategories: (json['activeCategories'] as num).toInt(),
       totalItems: (json['totalItems'] as num).toInt(),
       activeItems: (json['activeItems'] as num).toInt(),
-      totalFavorites: (json['totalFavorites'] as num).toInt(),
       totalProgressRows: (json['totalProgressRows'] as num).toInt(),
     );
 
@@ -30,7 +29,6 @@ Map<String, dynamic> _$AnalyticsOverviewToJson(_AnalyticsOverview instance) =>
       'activeCategories': instance.activeCategories,
       'totalItems': instance.totalItems,
       'activeItems': instance.activeItems,
-      'totalFavorites': instance.totalFavorites,
       'totalProgressRows': instance.totalProgressRows,
     };
 
@@ -55,23 +53,6 @@ Map<String, dynamic> _$TopItemToJson(_TopItem instance) => <String, dynamic>{
   'totalViews': instance.totalViews,
   'totalListens': instance.totalListens,
 };
-
-_TopCategory _$TopCategoryFromJson(Map<String, dynamic> json) => _TopCategory(
-  categoryId: json['categoryId'] as String,
-  categorySlug: json['categorySlug'] as String,
-  categoryName: json['categoryName'] as String,
-  colorHex: json['colorHex'] as String,
-  favoriteCount: (json['favoriteCount'] as num).toInt(),
-);
-
-Map<String, dynamic> _$TopCategoryToJson(_TopCategory instance) =>
-    <String, dynamic>{
-      'categoryId': instance.categoryId,
-      'categorySlug': instance.categorySlug,
-      'categoryName': instance.categoryName,
-      'colorHex': instance.colorHex,
-      'favoriteCount': instance.favoriteCount,
-    };
 
 _DauPoint _$DauPointFromJson(Map<String, dynamic> json) => _DauPoint(
   day: json['day'] as String,

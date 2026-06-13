@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Role, TextScale, ThemeMode } from '@prisma/client';
-import { FavoriteItemResponse } from './favorites-response.schema';
 import { PaginationMetaResponse } from './pagination-response.schema';
 
 export class AdminUserListItemResponse {
@@ -28,9 +27,6 @@ export class AdminUserListItemResponse {
 
   @ApiProperty({ format: 'date-time', example: '2026-04-12T08:14:55.000Z' })
   createdAt!: string;
-
-  @ApiProperty({ description: 'Total favorited items.', example: 12 })
-  favoritesCount!: number;
 
   @ApiProperty({
     description: 'Total progress rows (≈ distinct items engaged).',
@@ -79,14 +75,6 @@ export class AdminUserDetailResponse extends AdminUserListItemResponse {
 
   @ApiProperty({ format: 'date-time', example: '2026-06-08T11:02:00.000Z' })
   updatedAt!: string;
-}
-
-export class PaginatedFavoritesResponse {
-  @ApiProperty({ type: [FavoriteItemResponse] })
-  data!: FavoriteItemResponse[];
-
-  @ApiProperty({ type: PaginationMetaResponse })
-  meta!: PaginationMetaResponse;
 }
 
 export class UserProgressRowResponse {
@@ -212,9 +200,6 @@ export class AnalyticsOverviewResponse {
   @ApiProperty({ example: 296 })
   activeItems!: number;
 
-  @ApiProperty({ example: 1240 })
-  totalFavorites!: number;
-
   @ApiProperty({ example: 4980 })
   totalProgressRows!: number;
 }
@@ -243,23 +228,6 @@ export class TopItemResponse {
 
   @ApiProperty({ example: 119 })
   totalListens!: number;
-}
-
-export class TopCategoryResponse {
-  @ApiProperty({ format: 'uuid' })
-  categoryId!: string;
-
-  @ApiProperty({ example: 'animals' })
-  categorySlug!: string;
-
-  @ApiProperty({ example: 'Animals' })
-  categoryName!: string;
-
-  @ApiProperty({ pattern: '^#[0-9a-fA-F]{6}$', example: '#7BAFD4' })
-  colorHex!: string;
-
-  @ApiProperty({ example: 92 })
-  favoriteCount!: number;
 }
 
 export class DauPointResponse {

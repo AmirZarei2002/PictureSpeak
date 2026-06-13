@@ -8,7 +8,6 @@ export class AnalyticsOverviewEntity {
     public readonly activeCategories: number,
     public readonly totalItems: number,
     public readonly activeItems: number,
-    public readonly totalFavorites: number,
     public readonly totalProgressRows: number,
   ) {}
 }

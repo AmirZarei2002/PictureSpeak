@@ -13,11 +13,6 @@ final analyticsTopItemsProvider =
   return ref.watch(adminRepositoryProvider).getTopItems(limit: 10);
 });
 
-final analyticsTopCategoriesProvider =
-    FutureProvider.autoDispose<List<TopCategory>>((ref) {
-  return ref.watch(adminRepositoryProvider).getTopCategories(limit: 10);
-});
-
 final analyticsActiveUsersProvider =
     FutureProvider.autoDispose<ActiveUsers>((ref) {
   return ref.watch(adminRepositoryProvider).getActiveUsers(days: 30);

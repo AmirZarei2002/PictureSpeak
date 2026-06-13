@@ -43,7 +43,6 @@ abstract class AdminUserListItem with _$AdminUserListItem {
     @Default(UserRole.user) UserRole role,
     required bool isGuest,
     required DateTime createdAt,
-    required int favoritesCount,
     required int progressCount,
     DateTime? lastSeenAt,
   }) = _AdminUserListItem;
@@ -66,7 +65,6 @@ abstract class AdminUserDetail with _$AdminUserDetail {
     required bool soundEffectsOn,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required int favoritesCount,
     required int progressCount,
     DateTime? lastSeenAt,
   }) = _AdminUserDetail;

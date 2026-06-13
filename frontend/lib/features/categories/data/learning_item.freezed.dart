@@ -15,9 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LearningItem {
 
- String get id; String get slug; String get name; String get imagePath;// large card image (relative path)
- String? get thumbnailPath;// grid thumbnail (relative); may be null
- String? get audioPath;
+ String get id; String get slug; String get name; String get imagePath; String? get thumbnailPath; String? get audioPath;
 /// Create a copy of LearningItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -223,9 +221,7 @@ class _LearningItem implements LearningItem {
 @override final  String slug;
 @override final  String name;
 @override final  String imagePath;
-// large card image (relative path)
 @override final  String? thumbnailPath;
-// grid thumbnail (relative); may be null
 @override final  String? audioPath;
 
 /// Create a copy of LearningItem

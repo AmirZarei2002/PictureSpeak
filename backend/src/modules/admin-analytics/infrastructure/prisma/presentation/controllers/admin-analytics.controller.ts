@@ -11,14 +11,12 @@ import { ActiveUsersQueryDto } from '@modules/admin-analytics/application/dtos/a
 import { TopQueryDto } from '@modules/admin-analytics/application/dtos/top-query.dto';
 import { GetActiveUsersUseCase } from '@modules/admin-analytics/application/use-cases/get-active-users.usecase';
 import { GetOverviewUseCase } from '@modules/admin-analytics/application/use-cases/get-overview.usecase';
-import { GetTopCategoriesUseCase } from '@modules/admin-analytics/application/use-cases/get-top-categories.usecase';
 import { GetTopItemsUseCase } from '@modules/admin-analytics/application/use-cases/get-top-items.usecase';
 import { BEARER_AUTH_NAME, TAGS } from '@docs/constants';
 import { ApiStandardErrors } from '@docs/decorators/api-standard-errors.decorator';
 import {
   ActiveUsersResponse,
   AnalyticsOverviewResponse,
-  TopCategoryResponse,
   TopItemResponse,
 } from '@docs/schemas/admin-response.schema';
 
@@ -30,7 +28,6 @@ export class AdminAnalyticsController {
   constructor(
     private readonly getOverviewUseCase: GetOverviewUseCase,
     private readonly getTopItemsUseCase: GetTopItemsUseCase,
-    private readonly getTopCategoriesUseCase: GetTopCategoriesUseCase,
     private readonly getActiveUsersUseCase: GetActiveUsersUseCase,
   ) {}
 
@@ -63,21 +60,6 @@ export class AdminAnalyticsController {
   })
   topItems(@Query() query: TopQueryDto) {
     return this.getTopItemsUseCase.execute(query);
-  }
-
-  @Get('top-categories')
-  @ApiOperation({ summary: 'Top categories by favorite count' })
-  @ApiOkResponse({
-    description: 'Ranked categories, descending by favorite count.',
-    type: [TopCategoryResponse],
-  })
-  @ApiStandardErrors({
-    validation: true,
-    unauthorized: true,
-    forbidden: true,
-  })
-  topCategories(@Query() query: TopQueryDto) {
-    return this.getTopCategoriesUseCase.execute(query);
   }
 
   @Get('active-users')

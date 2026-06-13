@@ -31,7 +31,6 @@ import { AdminPaginationQueryDto } from '@modules/admin-user/application/dtos/pa
 import { UpdateUserAdminDto } from '@modules/admin-user/application/dtos/update-user-admin.dto';
 import { DeleteUserUseCase } from '@modules/admin-user/application/use-cases/delete-user.usecase';
 import { GetUserDetailUseCase } from '@modules/admin-user/application/use-cases/get-user-detail.usecase';
-import { ListUserFavoritesUseCase } from '@modules/admin-user/application/use-cases/list-user-favorites.usecase';
 import { ListUserProgressUseCase } from '@modules/admin-user/application/use-cases/list-user-progress.usecase';
 import { ListUsersUseCase } from '@modules/admin-user/application/use-cases/list-users.usecase';
 import { UpdateUserUseCase } from '@modules/admin-user/application/use-cases/update-user.usecase';
@@ -40,7 +39,6 @@ import { ApiStandardErrors } from '@docs/decorators/api-standard-errors.decorato
 import {
   AdminUserDetailResponse,
   PaginatedAdminUsersResponse,
-  PaginatedFavoritesResponse,
   PaginatedUserProgressResponse,
 } from '@docs/schemas/admin-response.schema';
 
@@ -61,7 +59,6 @@ export class AdminUsersController {
     private readonly getUserDetailUseCase: GetUserDetailUseCase,
     private readonly updateUserUseCase: UpdateUserUseCase,
     private readonly deleteUserUseCase: DeleteUserUseCase,
-    private readonly listUserFavoritesUseCase: ListUserFavoritesUseCase,
     private readonly listUserProgressUseCase: ListUserProgressUseCase,
   ) {}
 
@@ -88,7 +85,7 @@ export class AdminUsersController {
   @ApiOperation({ summary: 'Get a single user with engagement counts' })
   @ApiParam(USER_ID_PARAM)
   @ApiOkResponse({
-    description: 'User detail with favorites/progress counts and lastSeenAt.',
+    description: 'User detail with progress count and lastSeenAt.',
     type: AdminUserDetailResponse,
   })
   @ApiStandardErrors({
@@ -150,9 +147,9 @@ export class AdminUsersController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Delete a user (hard delete, cascades favorites/progress)',
+    summary: 'Delete a user (hard delete, cascades progress)',
     description:
-      'Hard-deletes the user and cascades to favorites and progress rows. ' +
+      'Hard-deletes the user and cascades to progress rows. ' +
       'Blocks self-deletion (400 `CANNOT_DELETE_SELF`) and deleting the last remaining admin (409 `CANNOT_DELETE_LAST_ADMIN`).',
   })
   @ApiParam(USER_ID_PARAM)
@@ -169,30 +166,6 @@ export class AdminUsersController {
     @Param('id', new ParseUUIDPipe()) id: string,
   ) {
     return this.deleteUserUseCase.execute(admin.id, id);
-  }
-
-  @Get(':id/favorites')
-  @ApiOperation({ summary: "List a user's favorites (paginated)" })
-  @ApiParam(USER_ID_PARAM)
-  @ApiOkResponse({
-    description: 'Paginated favorites with category metadata.',
-    type: PaginatedFavoritesResponse,
-  })
-  @ApiStandardErrors({
-    validation: true,
-    unauthorized: true,
-    forbidden: true,
-    notFound: true,
-  })
-  favorites(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Query() query: AdminPaginationQueryDto,
-  ) {
-    return this.listUserFavoritesUseCase.execute(
-      id,
-      query.page ?? 1,
-      query.size ?? 20,
-    );
   }
 
   @Get(':id/progress')

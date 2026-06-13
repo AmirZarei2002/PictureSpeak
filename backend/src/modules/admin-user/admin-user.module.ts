@@ -5,14 +5,12 @@ import { UpdateUserRepository } from '@modules/user/infrastructure/prisma/persis
 import { UserModule } from '@modules/user/user.module';
 import { DeleteUserUseCase } from './application/use-cases/delete-user.usecase';
 import { GetUserDetailUseCase } from './application/use-cases/get-user-detail.usecase';
-import { ListUserFavoritesUseCase } from './application/use-cases/list-user-favorites.usecase';
 import { ListUserProgressUseCase } from './application/use-cases/list-user-progress.usecase';
 import { ListUsersUseCase } from './application/use-cases/list-users.usecase';
 import { UpdateUserUseCase } from './application/use-cases/update-user.usecase';
 import { CountAdminsRepository } from './infrastructure/prisma/persistence/count-admins.repository';
 import { DeleteUserRepository } from './infrastructure/prisma/persistence/delete-user.repository';
 import { GetUserDetailRepository } from './infrastructure/prisma/persistence/get-user-detail.repository';
-import { ListUserFavoritesRepository } from './infrastructure/prisma/persistence/list-user-favorites.repository';
 import { ListUserProgressRepository } from './infrastructure/prisma/persistence/list-user-progress.repository';
 import { ListUsersRepository } from './infrastructure/prisma/persistence/list-users.repository';
 import { AdminUsersController } from './infrastructure/prisma/presentation/controllers/admin-users.controller';
@@ -27,7 +25,6 @@ import { AdminUsersController } from './infrastructure/prisma/presentation/contr
     GetUserDetailRepository,
     DeleteUserRepository,
     CountAdminsRepository,
-    ListUserFavoritesRepository,
     ListUserProgressRepository,
 
     {
@@ -68,14 +65,6 @@ import { AdminUsersController } from './infrastructure/prisma/presentation/contr
         DeleteUserRepository,
         CountAdminsRepository,
       ],
-    },
-    {
-      provide: ListUserFavoritesUseCase,
-      useFactory: (
-        findRepo: GetUserByIdRepository,
-        favsRepo: ListUserFavoritesRepository,
-      ) => new ListUserFavoritesUseCase(findRepo, favsRepo),
-      inject: [GetUserByIdRepository, ListUserFavoritesRepository],
     },
     {
       provide: ListUserProgressUseCase,

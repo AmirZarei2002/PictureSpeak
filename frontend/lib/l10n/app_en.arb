@@ -24,7 +24,6 @@
   "nothingToShow": "Nothing to show.",
 
   "home": "Home",
-  "favorites": "Favorites",
   "progress": "Progress",
   "settings": "Settings",
 
@@ -83,15 +82,6 @@
       "total": { "type": "int", "format": "decimalPattern" }
     }
   },
-
-  "favoritesLoadError": "Could not load favorites.",
-  "practiceAll": "Practice all",
-  "favoritesEmpty": "Tap the ♥ on any word to save it here.",
-  "removeFromFavorites": "Remove from favorites",
-  "addToFavorites": "Add to favorites",
-  "removedFromFavorites": "Removed from favorites",
-  "undo": "Undo",
-  "favoriteUpdateError": "Couldn't update favorites",
 
   "progressLoadError": "Could not load progress.",
   "wordsExplored": "Words explored",
@@ -186,20 +176,6 @@
       "listens": { "type": "int", "format": "decimalPattern" }
     }
   },
-  "topCategoriesByFavorites": "Top categories by favorites",
-  "topCategoriesFailed": "Top categories failed: {error}",
-  "@topCategoriesFailed": {
-    "placeholders": {
-      "error": { "type": "Object" }
-    }
-  },
-  "noFavoritesYet": "No favorites yet.",
-  "favoriteStars": "{count} ★",
-  "@favoriteStars": {
-    "placeholders": {
-      "count": { "type": "int", "format": "decimalPattern" }
-    }
-  },
   "manage": "Manage",
   "categoriesAndItems": "Categories & items",
   "signOutQuestion": "Sign out?",
@@ -216,12 +192,6 @@
   },
   "noUsersMatch": "No users match the filters.",
   "guestTag": "guest",
-  "favShort": "fav {count}",
-  "@favShort": {
-    "placeholders": {
-      "count": { "type": "int", "format": "decimalPattern" }
-    }
-  },
   "progShort": "prog {count}",
   "@progShort": {
     "placeholders": {
@@ -275,7 +245,7 @@
     }
   },
   "deleteUserQuestion": "Delete this user?",
-  "deleteUserBody": "This permanently deletes the account, all of their favorites, and all of their progress. This cannot be undone.",
+  "deleteUserBody": "This permanently deletes the account and all of their progress. This cannot be undone.",
   "deleteFailed": "Delete failed: {error}",
   "@deleteFailed": {
     "placeholders": {
@@ -352,7 +322,7 @@
   },
   "mediaThumb": "thumb",
   "mediaAudio": "audio",
-  "itemDeletePermanent": "This permanently deletes the item and cascades to anyone who has favorited it or viewed it. This cannot be undone.",
+  "itemDeletePermanent": "This permanently deletes the item and cascades to anyone who has viewed it. This cannot be undone.",
 
   "editItem": "Edit item",
   "newItemTitle": "New item",
